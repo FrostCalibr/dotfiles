@@ -1,0 +1,265 @@
+#!/usr/bin/env python3
+"""
+wallpaper-ui — GTK4/libadwaita frontend for wallpaper.sh
+Reads and writes MATUGEN_* vars directly in the script, then calls it.
+
+Dependencies: python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1
+"""
+
+import gi
+gi.require_version("Gtk", "4.0")
+gi.require_version("Adw", "1")
+from gi.repository import Gtk, Adw, Gio, GLib
+
+import os, re, glob, random, threading, subprocess
+
+# ── Paths ─────────────────────────────────────────────────────────────────────
+SCRIPT        = os.path.expanduser("wallpaper.sh")
+WALLPAPER_DIR = os.path.expanduser("~/Pictures/Wallpaper")
+
+# ── Options ───────────────────────────────────────────────────────────────────
+SCHEMES = [
+    "scheme-tonal-spot",
+    "scheme-vibrant",
+    "scheme-expressive",
+    "scheme-fidelity",
+    "scheme-fruit-salad",
+    "scheme-monochrome",
+    "scheme-neutral",
+    "scheme-rainbow",
+    "scheme-content",
+]
+
+PREFER_OPTS = [
+    "saturation",
+    "lightness",
+    "darkness",
+    "value",
+    "less-saturation",
+    "closest-to-fallback",
+]
+
+# ── Script I/O ────────────────────────────────────────────────────────────────
+def read_var(name: str, default: str = "") -> str:
+    try:
+        with open(SCRIPT) as f:
+            for line in f:
+                m = re.match(rf'^{name}="([^"]*)"', line.strip())
+                if m:
+                    return m.group(1)
+    except Exception:
+        pass
+    return default
+
+
+def write_var(name: str, value: str) -> None:
+    try:
+        with open(SCRIPT) as f:
+            content = f.read()
+        content = re.sub(
+            rf'^{name}="[^"]*"',
+            f'{name}="{value}"',
+            content,
+            flags=re.MULTILINE,
+        )
+        with open(SCRIPT, "w") as f:
+            f.write(content)
+    except Exception as e:
+        print(f"[wallpaper-ui] write_var failed: {e}")
+
+
+# ── Main window ───────────────────────────────────────────────────────────────
+class MainWindow(Adw.ApplicationWindow):
+    def __init__(self, app):
+        super().__init__(application=app)
+        self.set_title("Wallpaper")
+        self.set_default_size(440, 540)
+        self.wallpaper_path: str | None = None
+        self._build()
+        self._load_script_values()
+
+    # ── UI build ──────────────────────────────────────────────────────────────
+    def _build(self):
+        tv = Adw.ToolbarView()
+        tv.add_top_bar(Adw.HeaderBar())
+
+        self.toast_overlay = Adw.ToastOverlay()
+
+        scroll = Gtk.ScrolledWindow(vexpand=True)
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+
+        clamp = Adw.Clamp()
+        clamp.set_maximum_size(480)
+
+        root = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
+        root.set_margin_top(24)
+        root.set_margin_bottom(32)
+        root.set_margin_start(16)
+        root.set_margin_end(16)
+
+        # ── Wallpaper ─────────────────────────────────────────────────────────
+        wg = Adw.PreferencesGroup(title="Wallpaper")
+
+        self.wp_row = Adw.ActionRow(title="Image", subtitle="None selected")
+        self.wp_row.set_activatable(False)
+
+        rand_btn = Gtk.Button(label="Random", valign=Gtk.Align.CENTER)
+        rand_btn.add_css_class("flat")
+        rand_btn.connect("clicked", self._on_random)
+
+        browse_btn = Gtk.Button(label="Browse", valign=Gtk.Align.CENTER)
+        browse_btn.add_css_class("flat")
+        browse_btn.connect("clicked", self._on_browse)
+
+        self.wp_row.add_suffix(rand_btn)
+        self.wp_row.add_suffix(browse_btn)
+        wg.add(self.wp_row)
+        root.append(wg)
+
+        # ── Matugen ───────────────────────────────────────────────────────────
+        mg = Adw.PreferencesGroup(title="Matugen", description="Written back to wallpaper.sh on apply")
+
+        self.scheme_row = Adw.ComboRow(title="Scheme")
+        self.scheme_row.set_model(Gtk.StringList.new(SCHEMES))
+        mg.add(self.scheme_row)
+
+        self.contrast_row = Adw.SpinRow(
+            title="Contrast",
+            subtitle="−1 min  ·  0 default  ·  1 max",
+        )
+        self.contrast_row.set_adjustment(
+            Gtk.Adjustment(value=0.5, lower=-1.0, upper=1.0, step_increment=0.1)
+        )
+        self.contrast_row.set_digits(1)
+        mg.add(self.contrast_row)
+
+        self.lightness_row = Adw.SpinRow(
+            title="Lightness (dark)",
+            subtitle="0 = spec default, higher = brighter",
+        )
+        self.lightness_row.set_adjustment(
+            Gtk.Adjustment(value=0.3, lower=0.0, upper=1.0, step_increment=0.1)
+        )
+        self.lightness_row.set_digits(1)
+        mg.add(self.lightness_row)
+
+        self.prefer_row = Adw.ComboRow(title="Prefer", subtitle="Source color to extract from image")
+        self.prefer_row.set_model(Gtk.StringList.new(PREFER_OPTS))
+        mg.add(self.prefer_row)
+
+        root.append(mg)
+
+        # ── Apply ─────────────────────────────────────────────────────────────
+        self.apply_btn = Gtk.Button(label="Apply")
+        self.apply_btn.add_css_class("suggested-action")
+        self.apply_btn.add_css_class("pill")
+        self.apply_btn.set_halign(Gtk.Align.CENTER)
+        self.apply_btn.set_size_request(160, -1)
+        self.apply_btn.connect("clicked", self._on_apply)
+        root.append(self.apply_btn)
+
+        clamp.set_child(root)
+        scroll.set_child(clamp)
+        self.toast_overlay.set_child(scroll)
+        tv.set_content(self.toast_overlay)
+        self.set_content(tv)
+
+    # ── Load current script values ────────────────────────────────────────────
+    def _load_script_values(self):
+        scheme = read_var("MATUGEN_SCHEME", "scheme-vibrant")
+        if scheme in SCHEMES:
+            self.scheme_row.set_selected(SCHEMES.index(scheme))
+
+        try:
+            self.contrast_row.set_value(float(read_var("MATUGEN_CONTRAST", "0.5")))
+        except ValueError:
+            pass
+
+        try:
+            self.lightness_row.set_value(float(read_var("MATUGEN_LIGHTNESS", "0.3")))
+        except ValueError:
+            pass
+
+        prefer = read_var("MATUGEN_PREFER", "saturation")
+        if prefer in PREFER_OPTS:
+            self.prefer_row.set_selected(PREFER_OPTS.index(prefer))
+
+    # ── File picker ───────────────────────────────────────────────────────────
+    def _on_browse(self, _btn):
+        filt = Gtk.FileFilter()
+        filt.set_name("Images")
+        for mime in ("image/jpeg", "image/png", "image/webp"):
+            filt.add_mime_type(mime)
+        store = Gio.ListStore.new(Gtk.FileFilter)
+        store.append(filt)
+
+        d = Gtk.FileDialog()
+        d.set_filters(store)
+        d.open(self, None, self._on_file_chosen)
+
+    def _on_file_chosen(self, dialog, result):
+        try:
+            f = dialog.open_finish(result)
+            self._set_wallpaper(f.get_path())
+        except Exception:
+            pass
+
+    # ── Random ────────────────────────────────────────────────────────────────
+    def _on_random(self, _btn):
+        images = []
+        for ext in ("jpg", "jpeg", "png", "webp"):
+            images += glob.glob(f"{WALLPAPER_DIR}/**/*.{ext}", recursive=True)
+        if images:
+            self._set_wallpaper(random.choice(images))
+        else:
+            self._toast(f"No images found in {WALLPAPER_DIR}")
+
+    def _set_wallpaper(self, path: str):
+        self.wallpaper_path = path
+        self.wp_row.set_subtitle(os.path.basename(path))
+
+    # ── Apply ─────────────────────────────────────────────────────────────────
+    def _on_apply(self, _btn):
+        if not self.wallpaper_path:
+            self._toast("Select a wallpaper first")
+            return
+
+        # Write updated vars back into wallpaper.sh
+        write_var("MATUGEN_SCHEME",    SCHEMES[self.scheme_row.get_selected()])
+        write_var("MATUGEN_CONTRAST",  f"{self.contrast_row.get_value():.1f}")
+        write_var("MATUGEN_LIGHTNESS", f"{self.lightness_row.get_value():.1f}")
+        write_var("MATUGEN_PREFER",    PREFER_OPTS[self.prefer_row.get_selected()])
+
+        self.apply_btn.set_sensitive(False)
+        self.apply_btn.set_label("Applying…")
+
+        path = self.wallpaper_path
+
+        def _run():
+            try:
+                subprocess.run([SCRIPT, path], check=True)
+                GLib.idle_add(self._done, True)
+            except subprocess.CalledProcessError:
+                GLib.idle_add(self._done, False)
+
+        threading.Thread(target=_run, daemon=True).start()
+
+    def _done(self, ok: bool):
+        self.apply_btn.set_sensitive(True)
+        self.apply_btn.set_label("Apply")
+        self._toast("Done ✓" if ok else "Script failed — check your terminal")
+
+    def _toast(self, msg: str):
+        self.toast_overlay.add_toast(Adw.Toast.new(msg))
+
+
+# ── App ───────────────────────────────────────────────────────────────────────
+class App(Adw.Application):
+    def __init__(self):
+        super().__init__(application_id="io.github.wallpaper-ui")
+
+    def do_activate(self):
+        MainWindow(self).present()
+
+
+App().run()
