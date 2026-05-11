@@ -1,0 +1,290 @@
+@import 'colors.css';
+
+@define-color background @window_bg_color;
+@define-color foreground @primary;
+@define-color accent @tertiary;
+
+/* --- Global-Settings ---*/
+
+* {
+  all: unset;
+  font-family: 'JetBrainsMono Nerd Font Propo';
+  font-size: 12px;
+  font-weight: bold;
+  color: @foreground;
+}
+
+/* --- Waybar ---*/
+window#waybar {
+  background-color: transparent;
+  transition-property: background-color;
+  transition-duration: .5s;
+}
+
+window#waybar.empty #window {
+  background: transparent;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  color: transparent;
+  padding: 0;
+  margin: 0;
+}
+#waybar.empty .modules-center {
+  opacity: 0;
+}
+
+/* --- Tooltip ---*/
+tooltip {
+  opacity: 1;
+}
+
+/* --- Sub-Groups ---*/
+
+#left1 {
+  border-radius: 26px;
+  border: 1px solid alpha(@foreground, 0.3);
+  margin: 0px 8px 3px 8px;
+  background-color: @background;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+}
+
+#left2 {
+  border-radius: 26px;
+  border: 1px solid alpha(@foreground, 0.3);
+  margin: 0px 8px 3px 8px;
+  background-color: @background;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+}
+
+#left3 {
+}
+
+#custom-arch {
+  
+  font-size: 21px;  /* make the icon larger */
+  padding: 0 5px 0 5px;  /* more breathing room */
+  min-width: 30px;
+}
+#custom-expand-icon {
+  padding: 0 10px;
+  min-width: 0px;
+}
+
+/* --- Modules ---*/
+
+#center-window {
+  border-radius: 26px;
+  border: 1px solid alpha(@foreground, 0.3);
+  margin: 0px 8px 3px 8px;
+  background-color: @background;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+  transition: all 0.3s ease-in-out;
+}
+#center-clock {
+  border-radius: 26px;
+  border: 1px solid alpha(@foreground, 0.3);
+  margin: 0px 8px 3px 8px;
+  background-color: @background;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+}
+
+.modules-right {
+  border-radius: 26px;
+  border: 1px solid alpha(@foreground, 0.3);
+  margin: 0px 8px 3px 8px;
+  padding: 0px 0px 0px 10px;
+  background-color: @background;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+}
+
+/* --- Workspaces --- */
+#workspaces {
+  border-radius: 24px;
+  background-color: alpha(@background, 1);
+  opacity: 0.95;
+  margin: 0px;
+  padding: 1px 1px 1px;
+}
+
+#workspaces button {
+  padding: 0px 10px;
+  margin: 2px 2px;
+  border-radius: 24px;
+  background-color: alpha(@foreground, 0.15);
+  color: @foreground;
+  transition: all 0.2s ease-in-out;
+  opacity: 0.95;
+}
+
+#workspaces button.active {
+  min-width: 40px;
+  background-color: alpha(@foreground, 0.9);
+  opacity: 1.0;
+  transition: all 0.2s ease-in-out;
+}
+#workspaces button.active label {
+  color: @background;
+}
+
+#workspaces button.empty {
+  background-color: alpha(@foreground, 0.08);
+  color: @foreground;
+  opacity: 0.45;
+  border-radius: 24px;
+  transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.empty.active {
+  background-color: alpha(@foreground, 0.9);
+  color: @background;
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.empty:hover,
+#workspaces button:hover {
+  background: alpha(@foreground, 0.3);
+  color: @foreground;
+  opacity: 0.85;
+}
+#workspaces button.active:hover {
+  background: alpha(@foreground, 0.8);
+  opacity: 1;
+  
+  
+}
+
+/* --- General Modules --- */
+
+#tray,
+#window,
+#group-tray-expander,
+#mpris,
+#cpu,
+#clock,
+#battery,
+#network,
+#memory,
+#backlight,
+#bluetooth,
+#pulseaudio {
+  min-width: 14px;
+  margin: 1px 3px 1px 3px;
+  padding: 0 3px;
+}
+
+
+/* Specific Module */
+
+#clock {
+  padding: 0 5px 0 5px;
+  min-width: 0;
+}
+#group-tray-expander {
+  border-radius: 24px;
+  background-color: transparent;
+  margin-right: 0px;
+  padding: 0 9px 0 9px; 
+  color: @foreground;
+}
+
+#bluetooth {
+  padding-right: 0px;
+}
+
+
+
+#tray {
+  background-color: transparent;
+  border-radius: 24px;
+  margin: 0 2px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+.tray-group-item {
+  min-width: 0;
+  margin: 0;
+  padding: 0 2px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+tooltip {
+  padding: 4px;
+  background: @background;
+  border: 1px solid alpha(@foreground, 0.8);
+  border-radius: 8px;
+  box-shadow: 1px 1px 3px 1px #131313;
+  font-size: 12px;
+}
+
+tooltip label {
+  color: @foreground;
+  font-weight: normal;
+}
+
+/* --- MPRIS --- */
+#mpris {
+  border-radius: 26px;
+  border: 2px solid alpha(@foreground, 0.3);
+  margin: 0px 8px 3px 8px;
+  background-color: @background;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+  transition-property: background-color;
+  transition-duration: .5s;
+  animation: repeat;
+  animation-name: blink;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+
+
+/* --- Battery --- */
+#battery.warning {
+  color: #c95d0f;
+  background-color: transparent;
+}
+
+#battery.critical:not(.charging) {
+  background-color: transparent;
+  color: #e6d8ba;
+  animation-name: blink2;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+
+/* --- Keyframes --- */
+@keyframes blink {
+  to {
+    color: #4a4a4a;
+  }
+}
+
+@keyframes blink-inhibitor {
+  to {
+    color: @background;
+  }
+}
+
+@keyframes blink2 {
+  to {
+    background-color: transparent;
+    color: #f53c3c;
+  }
+}
+

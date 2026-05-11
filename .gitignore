@@ -1,0 +1,18 @@
+.git
+# Secrets / tokens
+**/*token*
+**/*secret*
+**/*password*
+**/*credentials*
+
+# Cache
+**/__pycache__/
+**/.cache/
+**/cache/
+
+# Spicetify — exclude large files
+.config/spicetify/Themes/*/node_modules/
+
+# Micro editor runtime files
+.config/micro/buffers/
+.config/micro/backups/
