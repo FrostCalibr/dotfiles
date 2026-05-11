@@ -14,6 +14,8 @@ from gi.repository import Gtk, Adw, Gio, GLib
 import os, re, glob, random, threading, subprocess
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
+
+# Change the paths accondingly
 SCRIPT        = os.path.expanduser("wallpaper.sh")
 WALLPAPER_DIR = os.path.expanduser("~/Pictures/Wallpaper")
 
