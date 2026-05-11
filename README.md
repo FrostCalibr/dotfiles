@@ -1,4 +1,4 @@
-# FrostCAlibr's Dotfiles
+# FrostCalibr's Dotfiles
 
 My personal Hyprland configuration.
 
