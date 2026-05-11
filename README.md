@@ -1,4 +1,4 @@
-# 🌨️ m_frost's Dotfiles
+# FrostCAlibr's Dotfiles
 
 My personal Hyprland configuration.
 
@@ -7,15 +7,9 @@ My personal Hyprland configuration.
 - **Bar:** Waybar
 - **Launcher:** Rofi
 - **Terminal:** Kitty
-- **Editor:** Neovim
 - **Wallpaper daemon:** awww
 
-## 📦 Install
-```bash
-git clone https://github.com/m_frost/dotfiles ~/dotfiles
-cd ~/dotfiles
-stow .
-```
+
 
 ## ⚠️ Notes
 
