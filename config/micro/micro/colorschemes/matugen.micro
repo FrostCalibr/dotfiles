@@ -1,0 +1,45 @@
+color-link default "#ffffff"
+color-link comment "#cbc8d7"
+color-link selection "#1f00d6,#9c99ff"
+color-link hlsearch "#ecddff"
+
+color-link identifier "#e4e1ff"
+color-link identifier.class "#e4e1ff"
+color-link identifier.var "#e4e1ff"
+
+color-link constant "#f7d9ff"
+color-link constant.number "#f7d9ff"
+color-link constant.string "#ecddff"
+
+color-link symbol "#c29cd4"
+color-link symbol.brackets "#efecfc"
+color-link symbol.tag "#e4e1ff"
+
+color-link type "#e4e1ff"
+color-link type.keyword "#ecddff"
+
+color-link special "#c29cd4"
+color-link statement "#9c99ff"
+color-link preproc "#c29cd4"
+
+color-link underlined "#ecddff"
+color-link error "bold #ffdcd7"
+color-link todo "bold #f7d9ff"
+
+color-link diff-added "#ecddff"
+color-link diff-modified "#f7d9ff"
+color-link diff-deleted "#ffdcd7"
+
+color-link gutter-error "#ffdcd7"
+color-link gutter-warning "#f7d9ff"
+
+color-link scrollbar "#efecfc"
+color-link statusline "#ffffff,#3b3858"
+color-link tabbar "#ffffff,#3b3858"
+color-link indent-char "#696678"
+color-link line-number "#aeabba"
+color-link current-line-number "#e4e1ff"
+
+color-link cursor-line "#696678,#ffffff"
+color-link color-column "#696678"
+color-link type.extended "default"

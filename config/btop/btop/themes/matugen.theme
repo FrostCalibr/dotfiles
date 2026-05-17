@@ -1,0 +1,86 @@
+# Matugen template for btop
+# Colors should be in 6 or 2 character hexadecimal or single spaced rgb decimal: "#RRGGBB", "#BW" or "0-255 0-255 0-255"
+# example for white: "#ffffff", "#ff" or "255 255 255".
+# All graphs and meters can be gradients
+# For single color graphs leave "mid" and "end" variable empty.
+# Use "start" and "end" variables for two color gradient
+# Use "start", "mid" and "end" for three color gradient
+
+# Main background — use surface so light-palette fg colors actually contrast
+theme[main_bg]="#3b3858"
+
+# Main text color
+theme[main_fg]="#ffffff"
+
+# Title color for boxes
+theme[title]="#e4e1ff"
+
+# Highlight color for keyboard shortcuts
+theme[hi_fg]="#ecddff"
+
+# Background color of selected item in processes box
+theme[selected_bg]="#e4e1ff"
+
+# Foreground color of selected item in processes box
+theme[selected_fg]="#1f00d6"
+
+# Color of inactive/disabled text
+theme[inactive_fg]="#efecfc"
+
+# Misc colors for processes box including mini cpu graphs, details memory graph and details status text
+theme[proc_misc]="#f7d9ff"
+
+# Cpu box outline color
+theme[cpu_box]="#cbc8d7"
+
+# Memory/disks box outline color
+theme[mem_box]="#cbc8d7"
+
+# Net up/down box outline color
+theme[net_box]="#cbc8d7"
+
+# Processes box outline color
+theme[proc_box]="#cbc8d7"
+
+# Box divider line and small boxes line color
+theme[div_line]="#aeabba"
+
+# Temperature graph colors — secondary(cool) → primary(warm) → error_container(danger deep red)
+theme[temp_start]="#ecddff"
+theme[temp_mid]="#e4e1ff"
+theme[temp_end]="#ff796a"
+
+# CPU graph colors — secondary(cool) → primary(warm) → error_container(danger deep red)
+theme[cpu_start]="#3f00ff"
+theme[cpu_mid]="#b3a4ce"
+theme[cpu_end]="#ff796a"
+
+# Mem/Disk free meter
+theme[free_start]="#ecddff"
+theme[free_mid]=""
+theme[free_end]="#b3a4ce"
+
+# Mem/Disk cached meter
+theme[cached_start]="#f7d9ff"
+theme[cached_mid]=""
+theme[cached_end]="#c29cd4"
+
+# Mem/Disk available meter
+theme[available_start]="#e4e1ff"
+theme[available_mid]=""
+theme[available_end]="#9c99ff"
+
+# Mem/Disk used meter — error_container(deep) → error(light) so full=alarming
+theme[used_start]="#ff796a"
+theme[used_mid]=""
+theme[used_end]="#ffdcd7"
+
+# Download graph colors — primary family (warm/pink)
+theme[download_start]="#9c99ff"
+theme[download_mid]="#e4e1ff"
+theme[download_end]="#000000"
+
+# Upload graph colors — tertiary family (amber/distinct from download)
+theme[upload_start]="#c29cd4"
+theme[upload_mid]="#f7d9ff"
+theme[upload_end]="#000000"
