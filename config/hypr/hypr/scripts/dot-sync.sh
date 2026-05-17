@@ -38,6 +38,6 @@ fi
 
 git -C "$DOTFILES" add .
 git -C "$DOTFILES" commit -m "$msg"
-git -C "$DOTFILES" push --force
+git -C "$DOTFILES" push 
 
 echo "Done!"

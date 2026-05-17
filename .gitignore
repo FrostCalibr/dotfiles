@@ -11,8 +11,11 @@
 **/cache/
 
 # Spicetify — exclude large files
-.config/spicetify/Themes/*/node_modules/
+config/spicetify/Themes/*/node_modules/
 
 # Micro editor runtime files
-.config/micro/buffers/
-.config/micro/backups/
+config/micro/buffers/
+config/micro/backups/
+
+#Scripts
+config/hypr/scripts/dot-sync.sh
