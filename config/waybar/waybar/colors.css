@@ -2,12 +2,12 @@
 * Waybar Colors
 * Generated with Matugen
 */
-@define-color window_bg_color #3b3858;
+@define-color window_bg_color #2d4553;
 @define-color window_fg_color #ffffff;
-@define-color primary         #e4e1ff;
-@define-color on_primary      #1f00d6;
-@define-color tertiary        #f7d9ff;
-@define-color on_tertiary     #591e79;
-@define-color accent_color    #cac7ff;
-@define-color surface         #504e63;
-@define-color surface_bright  #59586b;
+@define-color primary         #ffec81;
+@define-color on_primary      #6e5900;
+@define-color tertiary        #c2ecff;
+@define-color on_tertiary     #00557c;
+@define-color accent_color    #f0d86d;
+@define-color surface         #47555f;
+@define-color surface_bright  #515e66;

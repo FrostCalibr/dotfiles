@@ -1,11 +1,11 @@
 @import 'colors.css';
 
+/* --- Base Aliases --- */
 @define-color background @window_bg_color;
-@define-color foreground @primary;
-@define-color accent @tertiary;
+@define-color foreground @on_surface;
+@define-color accent @primary;
 
-/* --- Global-Settings ---*/
-
+/* --- Global Settings --- */
 * {
   all: unset;
   font-family: 'JetBrainsMono Nerd Font Propo';
@@ -14,7 +14,7 @@
   color: @foreground;
 }
 
-/* --- Waybar ---*/
+/* --- Waybar Window --- */
 window#waybar {
   background-color: transparent;
   transition-property: background-color;
@@ -30,133 +30,154 @@ window#waybar.empty #window {
   padding: 0;
   margin: 0;
 }
+
 #waybar.empty .modules-center {
   opacity: 0;
 }
 
-/* --- Tooltip ---*/
+/* --- Tooltip --- */
 tooltip {
   opacity: 1;
+  padding: 4px;
+  background: @surface_container;
+  border: 1px solid alpha(@outline, 0.8);
+  border-radius: 8px;
+  box-shadow: 1px 1px 3px 1px @shadow;
+  font-size: 12px;
 }
 
-/* --- Sub-Groups ---*/
+tooltip label {
+  color: @on_surface;
+  font-weight: normal;
+}
 
+/* --- Left Groups --- */
 #left1 {
   border-radius: 26px;
-  border: 1px solid alpha(@foreground, 0.3);
+  border: 1px solid alpha(@primary, 0.3);
   margin: 0px 8px 3px 8px;
-  background-color: @background;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+  background-color: @surface_container;
+  box-shadow: 0px 1px 3px @shadow;
 }
 
 #left2 {
   border-radius: 26px;
-  border: 1px solid alpha(@foreground, 0.3);
+  border: 1px solid alpha(@secondary, 0.3);
   margin: 0px 8px 3px 8px;
-  background-color: @background;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+  background-color: @surface_container;
+  box-shadow: 0px 1px 3px @shadow;
 }
 
 #left3 {
+  /* MPRIS container - styled separately below */
 }
 
 #custom-arch {
-  
-  font-size: 21px;  /* make the icon larger */
-  padding: 0 5px 0 5px;  /* more breathing room */
+  font-size: 21px;
+  padding: 0 5px 0 5px;
   min-width: 30px;
+  color: @on_primary_container;
 }
+
 #custom-expand-icon {
   padding: 0 10px;
   min-width: 0px;
+  color: @on_surface_variant;
 }
 
-/* --- Modules ---*/
-
+/* --- Center Groups --- */
 #center-window {
   border-radius: 26px;
-  border: 1px solid alpha(@foreground, 0.3);
+  border: 1px solid alpha(@tertiary, 0.3);
   margin: 0px 8px 3px 8px;
-  background-color: @background;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+  background-color: @surface_container;
+  box-shadow: 0px 1px 3px @shadow;
   transition: all 0.3s ease-in-out;
 }
+
 #center-clock {
   border-radius: 26px;
-  border: 1px solid alpha(@foreground, 0.3);
+  border: 1px solid alpha(@primary, 0.3);
   margin: 0px 8px 3px 8px;
-  background-color: @background;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+  background-color: @surface_container;
+  box-shadow: 0px 1px 3px @shadow;
 }
 
+/* --- Right Modules Container --- */
 .modules-right {
   border-radius: 26px;
-  border: 1px solid alpha(@foreground, 0.3);
+  border: 1px solid alpha(@outline, 0.3);
   margin: 0px 8px 3px 8px;
-  padding: 0px 0px 0px 10px;
-  background-color: @background;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+  padding: 0px 10px 0px 10px;
+  background-color: @surface_container;
+  box-shadow: 0px 1px 3px @shadow;
 }
 
-/* --- Workspaces --- */
+/* ---  kspaces --- */
 #workspaces {
   border-radius: 24px;
-  background-color: alpha(@background, 1);
-  opacity: 0.95;
+  background-color: transparent;
   margin: 0px;
-  padding: 1px 1px 1px;
+  padding: 2px;
 }
 
 #workspaces button {
-  padding: 0px 10px;
-  margin: 2px 2px;
+  padding: 0px 4px;
+  margin: 2px 3px;
   border-radius: 24px;
-  background-color: alpha(@foreground, 0.15);
-  color: @foreground;
+  background-color: alpha(@surface_bright, 0.5);
+  color: @window_fg_color;
   transition: all 0.2s ease-in-out;
+  opacity: 0.85;
+  min-width: 28px;
+}
+
+/* ALL active workspaces — with or without windows — same solid color */
+#workspaces button.active,
+#workspaces button.empty.active {
+  min-width: 44px;
+  background-color: @tertiary;
+  color: @on_tertiary;
+  opacity: 1.0;
+  box-shadow: 0px 1px 4px alpha(@tertiary, 0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.active label,
+#workspaces button.empty.active label {
+  color: @on_tertiary;
+  font-weight: bold;
+}
+
+/* Occupied but not active */
+#workspaces button:not(.empty):not(.active) {
+  background-color: alpha(@surface, 0.6);
+  color: @window_fg_color;
+  opacity: 0.9;
+}
+
+/* Empty and not active */
+#workspaces button.empty {
+  background-color: alpha(@surface_bright, 0.15);
+  color: alpha(@window_fg_color, 0.4);
+  opacity: 0.6;
+}
+
+/* Hover */
+#workspaces button:hover {
+  background-color: alpha(@primary, 0.25);
+  color: @window_fg_color;
   opacity: 0.95;
 }
 
-#workspaces button.active {
-  min-width: 40px;
-  background-color: alpha(@foreground, 0.9);
-  opacity: 1.0;
-  transition: all 0.2s ease-in-out;
-}
-#workspaces button.active label {
-  color: @background;
-}
-
-#workspaces button.empty {
-  background-color: alpha(@foreground, 0.08);
-  color: @foreground;
-  opacity: 0.45;
-  border-radius: 24px;
-  transition: all 0.2s ease-in-out;
-}
-
-#workspaces button.empty.active {
-  background-color: alpha(@foreground, 0.9);
-  color: @background;
-  opacity: 1;
-  transition: all 0.2s ease-in-out;
-}
-
-#workspaces button.empty:hover,
-#workspaces button:hover {
-  background: alpha(@foreground, 0.3);
-  color: @foreground;
-  opacity: 0.85;
-}
-#workspaces button.active:hover {
-  background: alpha(@foreground, 0.8);
-  opacity: 1;
-  
-  
+#workspaces button.active:hover,
+#workspaces button.empty.active:hover {
+  background-color: alpha(@tertiary, 0.85);
+  color: @on_tertiary;
+  box-shadow: 0px 2px 6px alpha(@tertiary, 0.6);
 }
 
 /* --- General Modules --- */
-
 #tray,
 #window,
 #group-tray-expander,
@@ -174,26 +195,28 @@ tooltip {
   padding: 0 3px;
 }
 
+/* --- Module Specific Colors --- */
 
-/* Specific Module */
-
+/* Clock - Primary Accent */
 #clock {
   padding: 0 5px 0 5px;
   min-width: 0;
+  color: @primary;
 }
+
+/* Window Title - Tertiary Accent */
+#window {
+  color: @tertiary;
+}
+
+/* System Tray */
 #group-tray-expander {
   border-radius: 24px;
   background-color: transparent;
   margin-right: 0px;
-  padding: 0 9px 0 9px; 
-  color: @foreground;
+  padding: 0 9px 0 9px;
+  color: @on_surface_variant;
 }
-
-#bluetooth {
-  padding-right: 0px;
-}
-
-
 
 #tray {
   background-color: transparent;
@@ -208,37 +231,81 @@ tooltip {
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
 }
+
 .tray-group-item {
   min-width: 0;
   margin: 0;
   padding: 0 2px;
 }
 
-.hidden {
-  opacity: 0;
+/* Bluetooth - Secondary */
+#bluetooth {
+  padding-right: 0px;
+  color: @secondary;
 }
 
-tooltip {
-  padding: 4px;
-  background: @background;
-  border: 1px solid alpha(@foreground, 0.8);
-  border-radius: 8px;
-  box-shadow: 1px 1px 3px 1px #131313;
-  font-size: 12px;
+#bluetooth.connected {
+  color: @on_secondary_container;
 }
 
-tooltip label {
-  color: @foreground;
-  font-weight: normal;
+/* Network - Tertiary */
+#network {
+  color: @tertiary;
 }
 
-/* --- MPRIS --- */
+/* Audio - Primary */
+#pulseaudio {
+  color: @primary;
+}
+
+#pulseaudio.muted {
+  color: @error;
+}
+
+/* CPU & Memory - Surface Variant */
+#cpu {
+  color: @on_surface_variant;
+}
+
+#memory {
+  color: @on_surface_variant;
+}
+
+/* Battery - Dynamic States */
+#battery {
+  color: @on_surface;
+}
+
+#battery.charging {
+  color: @primary;
+}
+
+#battery.plugged {
+  color: @secondary;
+}
+
+#battery.warning {
+  color: @error_container;
+  background-color: transparent;
+}
+
+#battery.critical:not(.charging) {
+  background-color: transparent;
+  color: @error;
+  animation-name: blink2;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* MPRIS - Special Styling */
 #mpris {
   border-radius: 26px;
-  border: 2px solid alpha(@foreground, 0.3);
+  border: 2px solid alpha(@secondary, 0.3);
   margin: 0px 8px 3px 8px;
-  background-color: @background;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+  background-color: @surface_container;
+  box-shadow: 0px 1px 3px @shadow;
   transition-property: background-color;
   transition-duration: .5s;
   animation: repeat;
@@ -247,44 +314,44 @@ tooltip label {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  color: @on_surface;
 }
 
-
-
-/* --- Battery --- */
-#battery.warning {
-  color: #c95d0f;
-  background-color: transparent;
+#mpris.playing {
+  color: @secondary;
+  border-color: alpha(@secondary, 0.6);
 }
 
-#battery.critical:not(.charging) {
-  background-color: transparent;
-  color: #e6d8ba;
-  animation-name: blink2;
-  animation-duration: 0.5s;
-  animation-timing-function: steps(12);
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+/* Notification */
+#custom-notification {
+  color: @primary;
 }
 
+#custom-notification.dnd {
+  color: @on_surface_variant;
+}
+
+/* Hidden */
+.hidden {
+  opacity: 0;
+}
 
 /* --- Keyframes --- */
 @keyframes blink {
   to {
-    color: #4a4a4a;
+    color: @on_surface_variant;
   }
 }
 
 @keyframes blink-inhibitor {
   to {
-    color: @background;
+    color: @surface_container;
   }
 }
 
 @keyframes blink2 {
   to {
     background-color: transparent;
-    color: #f53c3c;
+    color: @error_container;
   }
 }
-
