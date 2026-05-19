@@ -10,7 +10,7 @@
   
 "custom/arch": {
     "format": "󰣇",
-    "on-click": "$HOME/.config/rofi/launchers/type-1/launcher.sh",
+    "on-click": "/home/m_frost/.config/rofi/launchers/type-1/launcher.sh",
     "tooltip": false
 },
 "group/left1": {
@@ -133,7 +133,7 @@
     "format": "{icon}",
     "format-wifi": "{icon}",
     "format-ethernet": "󰀂",
-    "format-disconnected": "󰖪",
+    "format-disconnected": "󰤭",
     "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
