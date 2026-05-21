@@ -1,0 +1,14 @@
+{
+	"Transparent": true,
+	"Accent": "c7e5ff",
+	"Title": "d3e1ff",
+	"SearchBar": "00b6ff",
+	"PackagelistSourceRepository": "ddddff",
+	"PackagelistSourceAUR": "c7e5ff",
+	"PackagelistHeader": "9a9ed9",
+	"SettingsFieldBackground": "606b78",
+	"SettingsFieldText": "ffffff",
+	"SettingsFieldLabel": "000000",
+	"SettingsDropdownNotSelected": "b9c2cc",
+	"StylePKGBUILD": "dracula"
+}
