@@ -53,3 +53,11 @@ output_path = '~/.config/gtk-4.0/colors.css'
 [templates.spotify_player]
 input_path = '~/.config/matugen/templates/spotify_player.toml'
 output_path = '~/.config/spotify-player/theme.toml'
+
+[templates.pacseek]
+input_path = "~/.config/matugen/templates/pacseek.json"
+output_path = "~/.config/pacseek/colors.json"
+
+[templates.swaync]
+input_path = "~/.config/matugen/templates/swaync.css"
+output_path = "~/.config/swaync/colors/matugen.css"

@@ -1,0 +1,14 @@
+{
+	"Transparent": true,
+	"Accent": "{{colors.primary.default.hex_stripped}}",
+	"Title": "{{colors.secondary.default.hex_stripped}}",
+	"SearchBar": "{{colors.primary_container.default.hex_stripped}}",
+	"PackagelistSourceRepository": "{{colors.tertiary.default.hex_stripped}}",
+	"PackagelistSourceAUR": "{{colors.primary.default.hex_stripped}}",
+	"PackagelistHeader": "{{colors.tertiary_container.default.hex_stripped}}",
+	"SettingsFieldBackground": "{{colors.surface_variant.default.hex_stripped}}",
+	"SettingsFieldText": "{{colors.on_surface.default.hex_stripped}}",
+	"SettingsFieldLabel": "{{colors.on_secondary_container.default.hex_stripped}}",
+	"SettingsDropdownNotSelected": "{{colors.outline.default.hex_stripped}}",
+	"StylePKGBUILD": "dracula"
+}
