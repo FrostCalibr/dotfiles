@@ -23,6 +23,7 @@ TRACKED=(
     "rofi:$CONFIG/rofi:config/rofi"
     "spicetify:$CONFIG/spicetify:config/spicetify"
     "superfile:$CONFIG/superfile:config/superfile"
+	"pacseek:$CONFIG/pacseek:config/pacseek"
 	"swaync:$CONFIG/swaync:config/swaync"
     "swayosd:$CONFIG/swayosd:config/swayosd"
     "waybar:$CONFIG/waybar:config/waybar"
