@@ -1,13 +1,52 @@
 /*
-* Waybar Colors
-* Generated with Matugen
-*/
-@define-color window_bg_color #2d4553;
-@define-color window_fg_color #ffffff;
-@define-color primary         #ffec81;
-@define-color on_primary      #6e5900;
-@define-color tertiary        #c2ecff;
-@define-color on_tertiary     #00557c;
-@define-color accent_color    #f0d86d;
-@define-color surface         #47555f;
-@define-color surface_bright  #515e66;
+ * Waybar Colors - Full Material Design 3 Palette
+ * Matugen Template
+ * Place this in ~/.config/matugen/templates/colors.css
+ */
+
+/* Core Colors */
+@define-color window_bg_color     #2b435a;
+@define-color window_fg_color     #ffffff;
+@define-color primary             #c7e5ff;
+@define-color on_primary          #005994;
+@define-color primary_container   #00b6ff;
+@define-color on_primary_container #000000;
+
+@define-color secondary           #d3e1ff;
+@define-color on_secondary        #2c4b84;
+@define-color secondary_container #93a4ca;
+@define-color on_secondary_container #000000;
+
+@define-color tertiary            #ddddff;
+@define-color on_tertiary         #363e93;
+@define-color tertiary_container  #9a9ed9;
+@define-color on_tertiary_container #000000;
+
+@define-color error               #ffd8d1;
+@define-color on_error            #d60007;
+@define-color error_container     #ff6255;
+@define-color on_error_container #000000;
+
+/* Surface Colors */
+@define-color surface             #2b435a;
+@define-color on_surface          #ffffff;
+@define-color on_surface_variant  #dce3ed;
+@define-color surface_variant     #606b78;
+@define-color surface_bright      #5e6977;
+@define-color surface_dim         #2b435a;
+@define-color surface_container   #435462;
+@define-color surface_container_low #394a5e;
+@define-color surface_container_high #4e5b69;
+@define-color surface_container_highest #586472;
+
+/* Utility Colors */
+@define-color outline             #b9c2cc;
+@define-color outline_variant     #9da6b2;
+@define-color shadow              #000000;
+@define-color scrim               #000000;
+@define-color inverse_surface      #e1e8f3;
+@define-color inverse_on_surface   #455565;
+@define-color inverse_primary      #0078bc;
+
+/* Accent / Alias */
+@define-color accent_color        #c7e5ff;
