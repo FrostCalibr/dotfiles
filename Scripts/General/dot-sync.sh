@@ -24,6 +24,7 @@ TRACKED=(
     "spicetify:$CONFIG/spicetify:config/spicetify"
     "superfile:$CONFIG/superfile:config/superfile"
 	"pacseek:$CONFIG/pacseek:config/pacseek"
+	"zshrc:$HOME/.zshrc:./.zshrc"
 	"swaync:$CONFIG/swaync:config/swaync"
     "swayosd:$CONFIG/swayosd:config/swayosd"
     "waybar:$CONFIG/waybar:config/waybar"
