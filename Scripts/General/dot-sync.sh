@@ -2,119 +2,148 @@
 # Dotfile Syncer
 set -euo pipefail
 
+# ── Colors ────────────────────────────────────────────────────────────────────
+RED='\033[0;31m';  GREEN='\033[0;32m'; YELLOW='\033[1;33m'
+CYAN='\033[0;36m'; BOLD='\033[1m';     DIM='\033[2m'; RESET='\033[0m'
+
+# ── Config ────────────────────────────────────────────────────────────────────
 DOTFILES="$HOME/dotfiles"
 CONFIG="$HOME/.config"
 
-CONFIG_TRACKED=(
-    btop cava greenclip.toml hypr kitty
-    matugen micro nvim rofi spicetify
-    superfile swayosd waybar
+# Format: "label:source:dest_relative_to_dotfiles"
+TRACKED=(
+    "btop:$CONFIG/btop:config/btop"
+    "cava:$CONFIG/cava:config/cava"
+    "greenclip:$CONFIG/greenclip.toml:config/greenclip.toml"
+    "hypr:$CONFIG/hypr:config/hypr"
+    "kitty:$CONFIG/kitty:config/kitty"
+    "matugen:$CONFIG/matugen:config/matugen"
+    "micro:$CONFIG/micro:config/micro"
+    "nvim:$CONFIG/nvim:config/nvim"
+    "rofi:$CONFIG/rofi:config/rofi"
+    "spicetify:$CONFIG/spicetify:config/spicetify"
+    "superfile:$CONFIG/superfile:config/superfile"
+    "swayosd:$CONFIG/swayosd:config/swayosd"
+    "waybar:$CONFIG/waybar:config/waybar"
+    "Scripts:$HOME/Scripts:Scripts"
 )
 
-HOME_TRACKED=(
-    "Scripts:Scripts"
-)
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+has_changes() {
+    [ -n "$(git -C "$DOTFILES" status --porcelain -- "$1")" ]
+}
 
 sync_item() {
-    local src="$1"
-    local dest="$2"
-    local label="$3"
+    local src="$1" dest="$2" label="$3"
 
     if [ ! -e "$src" ]; then
-        echo "󰅙 $label not found"
+        echo -e "  ${RED}󰅙${RESET}  $label ${DIM}(not found, skipping)${RESET}"
         return
     fi
 
-    if [ -d "$dest" ]; then
-        rm -rf "$dest"
-    elif [ -e "$dest" ]; then
-        rm -f "$dest"
-    fi
+    [ -d "$dest" ] && rm -rf "$dest"
+    [ -e "$dest" ] && rm -f "$dest"
 
     cp -r "$src" "$dest"
-    echo "󰗠  $label"
+    echo -e "  ${GREEN}󰗠${RESET}  $label"
 }
 
-commit_item() {
-    local dest_rel="$1"   # path relative to dotfiles root
-    local label="$2"
+# ── Phase 1: Sync ─────────────────────────────────────────────────────────────
 
-    # Check if this item has any changes
-    if git -C "$DOTFILES" diff --quiet -- "$dest_rel" && \
-       git -C "$DOTFILES" diff --cached --quiet -- "$dest_rel"; then
-        return  # no changes, skip silently
-    fi
+echo -e "\n${BOLD} Syncing files${RESET}\n"
 
-    echo ""
-    echo "󰷈 Changes in $label:"
-    git -C "$DOTFILES" diff --stat -- "$dest_rel"
-
-    read -rp "  Commit '$label'? [y/N/msg] " choice
-    case "$choice" in
-        y|Y)
-            msg="Update $label"
-            ;;
-        n|N|"")
-            echo "  Skipped."
-            return
-            ;;
-        *)
-            # Anything else is treated as the commit message itself
-            msg="$choice"
-            ;;
-    esac
-
-    git -C "$DOTFILES" add -- "$dest_rel"
-    git -C "$DOTFILES" commit -m "$msg"
-    echo "  󰗠 Committed: $msg"
-}
-
-# ── Sync ─────────────────────────────────────────────────────────────────────
-
-echo " Syncing files"
-
-for item in "${CONFIG_TRACKED[@]}"; do
-    sync_item "$CONFIG/$item" "$DOTFILES/config/$item" "$item"
+for entry in "${TRACKED[@]}"; do
+    IFS=':' read -r label src dest_rel <<< "$entry"
+    sync_item "$src" "$DOTFILES/$dest_rel" "$label"
 done
 
-for entry in "${HOME_TRACKED[@]}"; do
-    src_rel="${entry%%:*}"
-    dest_rel="${entry##*:}"
-    sync_item "$HOME/$src_rel" "$DOTFILES/$dest_rel" "$src_rel"
+# ── Phase 2: Detect changes ───────────────────────────────────────────────────
+
+declare -a CHANGED_ENTRIES=()
+for entry in "${TRACKED[@]}"; do
+    IFS=':' read -r label src dest_rel <<< "$entry"
+    has_changes "$dest_rel" && CHANGED_ENTRIES+=("$entry")
 done
 
-# ── Commit ────────────────────────────────────────────────────────────────────
-
-if git -C "$DOTFILES" diff --quiet && git -C "$DOTFILES" diff --cached --quiet; then
-    echo ""
-    echo "No changes to commit."
+if [ ${#CHANGED_ENTRIES[@]} -eq 0 ]; then
+    echo -e "\n${DIM}No changes to commit.${RESET}\n"
     exit 0
 fi
 
+# ── Phase 3: Show summary, pick mode ─────────────────────────────────────────
+
+echo -e "\n${BOLD}󰷈  Changed items:${RESET}"
+for entry in "${CHANGED_ENTRIES[@]}"; do
+    IFS=':' read -r label src dest_rel <<< "$entry"
+    echo -e "  ${YELLOW}•${RESET} $label"
+done
+
 echo ""
-echo "Reviewing changes per item..."
+echo -e "${DIM}  a  = commit all with one message${RESET}"
+echo -e "${DIM}  r  = review and commit each one individually${RESET}"
+read -rp "$(echo -e "${BOLD}  Choice [a/r]: ${RESET}")" mode
 
-for item in "${CONFIG_TRACKED[@]}"; do
-    commit_item "config/$item" "$item"
-done
+case "$mode" in
+    a|A)
+        # ── Commit all ────────────────────────────────────────────────────────
+        read -rp "  Commit message: " msg
+        [ -z "$msg" ] && echo "No message entered, aborting." && exit 1
+        git -C "$DOTFILES" add .
+        git -C "$DOTFILES" commit -m "$msg"
+        echo -e "\n  ${GREEN}All committed.${RESET}"
+        ;;
 
-for entry in "${HOME_TRACKED[@]}"; do
-    dest_rel="${entry##*:}"
-    commit_item "$dest_rel" "$dest_rel"
-done
+    *)
+        # ── Per-item review ───────────────────────────────────────────────────
+        committed=0; skipped=0
 
-# ── Push ──────────────────────────────────────────────────────────────────────
+        for entry in "${CHANGED_ENTRIES[@]}"; do
+            IFS=':' read -r label src dest_rel <<< "$entry"
 
-if git -C "$DOTFILES" log origin/main..HEAD --oneline | grep -q .; then
+            echo -e "\n${BOLD}${CYAN}── $label${RESET} ${DIM}($dest_rel)${RESET}"
+            git -C "$DOTFILES" status --short -- "$dest_rel"
+
+            echo -e "${DIM}  Enter = auto message  │  s = skip  │  or type a custom message${RESET}"
+            read -rp "  > " choice
+
+            case "$choice" in
+                s|S)
+                    echo -e "  ${YELLOW}Skipped${RESET}"
+                    skipped=$((skipped + 1))
+                    ;;
+                "")
+                    git -C "$DOTFILES" add -- "$dest_rel"
+                    git -C "$DOTFILES" commit -m "Update $label"
+                    echo -e "  ${GREEN}Committed:${RESET} Update $label"
+                    committed=$((committed + 1))
+                    ;;
+                *)
+                    git -C "$DOTFILES" add -- "$dest_rel"
+                    git -C "$DOTFILES" commit -m "$choice"
+                    echo -e "  ${GREEN}Committed:${RESET} $choice"
+                    committed=$((committed + 1))
+                    ;;
+            esac
+        done
+
+        echo -e "\n${BOLD}Summary:${RESET} ${GREEN}$committed committed${RESET} · ${YELLOW}$skipped skipped${RESET}"
+        ;;
+esac
+
+# ── Phase 4: Push ─────────────────────────────────────────────────────────────
+
+BRANCH=$(git -C "$DOTFILES" symbolic-ref --short HEAD 2>/dev/null || echo "main")
+
+if git -C "$DOTFILES" log "origin/$BRANCH..HEAD" --oneline 2>/dev/null | grep -q .; then
     echo ""
-    read -rp "Push all commits? [Y/n] " push
-    if [[ "$push" =~ ^[Nn]$ ]]; then
-        echo "Skipped push."
+    read -rp "$(echo -e "${BOLD}Push to origin/$BRANCH? [Y/n]: ${RESET}")" push
+    if [[ "${push:-y}" =~ ^[Nn]$ ]]; then
+        echo -e "${DIM}Push skipped.${RESET}"
     else
         git -C "$DOTFILES" push
-        echo "Done!"
+        echo -e "\n${GREEN}Done!${RESET}"
     fi
 else
-    echo ""
-    echo "Nothing to push."
+    echo -e "\n${DIM}Nothing to push.${RESET}"
 fi
