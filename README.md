@@ -1,5 +1,4 @@
 
-# FrostCalibr's Dotfiles
 
 # FrostCalibr's Dotfiles
 
