@@ -2,26 +2,26 @@
 * GTK Colors
 * Generated with Matugen
 */
-@define-color accent_color      #c6c9ff;
-@define-color accent_fg_color   #141ca3;
-@define-color accent_bg_color   #9a9ed9;
+@define-color accent_color      #d5c5ff;
+@define-color accent_fg_color   #381091;
+@define-color accent_bg_color   #a999d4;
 
-@define-color window_bg_color   #2b435a;
+@define-color window_bg_color   #333d5a;
 @define-color window_fg_color   #ffffff;
 
-@define-color headerbar_bg_color  #4e5b69;
+@define-color headerbar_bg_color  #53586a;
 @define-color headerbar_fg_color  #ffffff;
 
-@define-color popover_bg_color  #435462;
-@define-color popover_fg_color  #dce3ed;
+@define-color popover_bg_color  #485063;
+@define-color popover_fg_color  #e0e2ef;
 
-@define-color view_bg_color     #2b435a;
+@define-color view_bg_color     #333d5a;
 @define-color view_fg_color     #ffffff;
 
-@define-color card_bg_color     #394a5e;
+@define-color card_bg_color     #3f465e;
 @define-color card_fg_color     #ffffff;
 
-@define-color sidebar_bg_color        #143564;
-@define-color sidebar_fg_color        #dce3ed;
-@define-color sidebar_border_color    #9da6b2;
-@define-color sidebar_backdrop_color  #2b435a;
+@define-color sidebar_bg_color        #1f2b64;
+@define-color sidebar_fg_color        #e0e2ef;
+@define-color sidebar_border_color    #a1a5b2;
+@define-color sidebar_backdrop_color  #333d5a;
