@@ -21,6 +21,8 @@ TRACKED=(
     "micro:$CONFIG/micro:config/micro"
     "nvim:$CONFIG/nvim:config/nvim"
     "rofi:$CONFIG/rofi:config/rofi"
+	"gtk-3.0:$CONFIG/gtk-3.0:config/gtk-3.0"
+	"gtk-4.0:$CONFIG/gtk-4.0:config/gtk-4.0"
     "spicetify:$CONFIG/spicetify:config/spicetify"
     "superfile:$CONFIG/superfile:config/superfile"
 	"pacseek:$CONFIG/pacseek:config/pacseek"
