@@ -1,14 +1,14 @@
 {
 	"Transparent": true,
-	"Accent": "c7e5ff",
-	"Title": "d3e1ff",
-	"SearchBar": "00b6ff",
-	"PackagelistSourceRepository": "ddddff",
-	"PackagelistSourceAUR": "c7e5ff",
-	"PackagelistHeader": "9a9ed9",
-	"SettingsFieldBackground": "606b78",
+	"Accent": "d4e1ff",
+	"Title": "ddddff",
+	"SearchBar": "5f9dff",
+	"PackagelistSourceRepository": "e7daff",
+	"PackagelistSourceAUR": "d4e1ff",
+	"PackagelistHeader": "a999d4",
+	"SettingsFieldBackground": "646979",
 	"SettingsFieldText": "ffffff",
 	"SettingsFieldLabel": "000000",
-	"SettingsDropdownNotSelected": "b9c2cc",
+	"SettingsDropdownNotSelected": "bdbfcd",
 	"StylePKGBUILD": "dracula"
 }
