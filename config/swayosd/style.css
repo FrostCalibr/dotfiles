@@ -1,60 +1,87 @@
 @import url("colors.css");
 
-window {
+/* ── Window ─────────────────────────────────────────── */
+window#osd {
   border-radius: 99px;
-  padding: 9px 18px;
+  padding: 10px 20px;
   background-color: alpha(@window_bg_color, 0.92);
-  border: 1px solid alpha(@secondary, 0.25);
-  transition: opacity 150ms ease;
-}
-label {
-  color:       @window_fg_color;
-  font-size:   14px;
-  font-weight: 500;
-  margin:      0;
-  min-width:   0px;
+  border: 1px solid alpha(@secondary, 0.2);
+  box-shadow: 0 4px 24px alpha(#000000, 0.3);
 }
 
-image, label {
-  color: @window_fg_color;
-  margin: 4px 8px;
-}
-
-progressbar {
-  min-width: 200px;
-  min-height: 6px;
-  border-radius: 999px;
-}
-
+/* ── Icon ───────────────────────────────────────────── */
 image {
-  margin: 0;
+  color: @window_fg_color;
+  -gtk-icon-size: 28px;
+  margin: 0 6px 0 0;
   padding: 0;
-  -gtk-icon-size: 32px;
 }
 
-/* shrink window when only icon is shown */
-window > box {
-  min-width: 0;
-}
-
-box {
-  halign: center;
-  valign: center;
-}
-
+/* icon-only (e.g. caps lock on/off) */
 window > box > image:only-child {
+  -gtk-icon-size: 32px;
   margin: 0 auto;
-  padding: 0 60px;
+  padding: 0 48px;
 }
-progressbar trough {
-  background-color: alpha(@secondary, 0.2);
+
+/*Label (percentage) */
+label {
+  color: @window_fg_color;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 0 10px;
+  min-width: 36px; /* stops the window resizing as digits change */
+}
+
+/*Progress bar */
+progressbar {
+  min-width: 180px;
+  min-height: 14px;
   border-radius: 999px;
-  min-height: 6px;
+}
+
+progressbar trough {
+  background-color: alpha(@primary, 0.18);
+  border-radius: 999px;
+  min-height: inherit;
 }
 
 progressbar progress {
   background-color: @primary;
   border-radius: 999px;
+  margin: 4px;
+  min-height: 8px;
+  transition: all 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Segmented bar (caps/num/scroll lock) ───────────── */
+segmentedprogress {
+  min-width: 180px;
   min-height: 6px;
-  transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 999px;
+}
+
+segment {
+  background-color: alpha(@secondary, 0.18);
+  border-radius: 999px;
+  min-height: 6px;
+  margin-left: 4px;
+}
+
+segment:first-child {
+  margin-left: 0;
+}
+
+segment.active {
+  background-color: @primary;
+}
+
+/* ── Muted / disabled state ─────────────────────────── */
+progressbar:disabled,
+image:disabled {
+  opacity: 0.35;
+}
+
+progressbar:disabled progress {
+  background-color: @secondary;
 }

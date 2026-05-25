@@ -19,9 +19,9 @@ PLAYER=$(playerctl metadata --format '{{playerName}}' 2>/dev/null)
 [[ -z "$TITLE" ]] && TITLE="Unknown"
 
 # Icon selection
-ICON="⏸"
-[[ "$PLAYER" == "mpv" ]] && ICON="🎵"
-[[ "$STATUS" == "Paused" ]] && ICON="▶"
+ICON=""
+[[ "$PLAYER" == "mpv" ]] && ICON=" "
+[[ "$STATUS" == "Paused" ]] && ICON=""
 
 # Format text
 TEXT="$ICON $ARTIST - $TITLE"

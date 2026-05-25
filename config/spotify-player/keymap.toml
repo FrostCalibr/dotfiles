@@ -1,0 +1,68 @@
+[[keymaps]]
+command = "ResumePause"
+key_sequence = "space"
+
+[[keymaps]]
+command = "NextTrack"
+key_sequence = "C-right"
+
+[[keymaps]]
+command = "PreviousTrack"
+key_sequence = "C-left"
+
+[[keymaps]]
+command = { VolumeChange = { offset = 5 } }
+key_sequence = "="
+
+[[keymaps]]
+command = { VolumeChange = { offset = -5 } }
+key_sequence = "-"
+
+[[keymaps]]
+command = "SearchPage"
+key_sequence = "C-f"
+
+[[keymaps]]
+command = "Shuffle"
+key_sequence = "C-s"
+
+[[keymaps]]
+command = "Repeat"
+key_sequence = "C-r"
+
+[[keymaps]]
+command = "Quit"
+key_sequence = "C-q"
+
+[[keymaps]]
+command = "LibraryPage"
+key_sequence = "C-b"
+
+[[keymaps]]
+command = "LyricsPage"
+key_sequence = "C-l"
+
+[[keymaps]]
+command = "ClosePopup"
+key_sequence = "esc"
+
+[[keymaps]]
+command = "SelectNextOrScrollDown"
+key_sequence = "down"
+
+[[keymaps]]
+command = "SelectPreviousOrScrollUp"
+key_sequence = "up"
+
+[[keymaps]]
+command = "ChooseSelected"
+key_sequence = "enter"
+
+[[actions]]
+action = "ToggleLiked"
+key_sequence = "C-h"
+
+[[actions]]
+action = "GoToRadio"
+key_sequence = "C-e"
+target = "PlayingTrack"

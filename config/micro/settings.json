@@ -1,3 +1,16 @@
 {
-    "colorscheme": "matugen"
+    "lsp.server": "python=/home/m_frost/.venv/bin/pylsp,lua=lua-language-server",
+    "lsp.formatOnSave": true,
+    "colorscheme": "matugen",
+    "autoclose": true,
+    "Alt+Space": "lsp.complete",
+    "autoindent": true,
+    "filemanager.openonstart": true,
+    "linter.enable": true,
+    "mouse": true,
+    "paste": false,
+    "ruler": true,
+    "softwrap": true,
+    "tabsize": 4,
+    "tabstospaces": true
 }

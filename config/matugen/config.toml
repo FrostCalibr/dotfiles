@@ -14,9 +14,11 @@ input_path = '~/.config/matugen/templates/rofi-colors.rasi'
 output_path = '~/.config/rofi/colors/matugen.rasi'
 
 [templates.swayosd]
-input_path = '~/.config/matugen/templates/gtk-colors.css'
+input_path = '~/.config/matugen/templates/swayosd-colors.css'
 output_path = '~/.config/swayosd/colors.css'
-
+pre_hook = 'systemctl --user stop swayosd-server'
+post_hook = 'systemctl --user start swayosd-server'
+ 
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty-colors.conf'
 output_path = '~/.config/kitty/themes/Matugen.conf'
@@ -34,12 +36,12 @@ post_hook = 'pkill -USR2 btop || true'
 [templates.spotify]
 input_path = '~/.config/matugen/templates/spicetify.ini'
 output_path = '~/.config/spicetify/Themes/Sleek/color.ini'
-post_hook = 'spicetify watch -s 2>&1 | sed "/Reloaded Spotify/q"'
+post_hook = 'pgrep -xi spotify > /dev/null && spicetify apply 2>&1'
 
 [templates.cava]
 input_path = '~/.config/matugen/templates/cava-colors.ini'
 output_path = '~/.config/cava/config'
-post_hook = 'pkill -USR1 cava'
+post_hook = 'pkill -SIGUSR1 cava'
 
 [templates.gtk3]
 input_path = '~/.config/matugen/templates/gtk-colors.css'
@@ -61,3 +63,12 @@ output_path = "~/.config/pacseek/colors.json"
 [templates.swaync]
 input_path = "~/.config/matugen/templates/swaync.css"
 output_path = "~/.config/swaync/colors/matugen.css"
+post_hook = 'pkill -SIGUSR2 swaync'
+
+[templates.kvantum_kvconfig]
+input_path = './templates/kvantum-colors.kvconfig'
+output_path = '~/.config/Kvantum/matugen/matugen.kvconfig'
+
+[templates.kvantum_svg]
+input_path = './templates/kvantum-colors.svg'
+output_path = '~/.config/Kvantum/matugen/matugen.svg'

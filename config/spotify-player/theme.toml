@@ -1,0 +1,26 @@
+[[themes]]
+name = "matugen"
+
+[themes.component_style]
+block_title = { fg = "#e0dcff", modifiers = ["Bold"] }
+border = { fg = "#c1becd" }
+
+playback_status = { fg = "#e0dcff", modifiers = ["Bold"] }
+playback_track = { fg = "#ffffff", modifiers = ["Bold"] }
+playback_artists = { fg = "#ead9ff" }
+playback_album = { fg = "#f6d4ff" }
+playback_genres = { fg = "#e4dfef", modifiers = ["Italic"] }
+playback_metadata = { fg = "#e4dfef" }
+playback_progress_bar = { fg = "#e0dcff", bg = "#625f72" }
+playback_progress_bar_unfilled = { bg = "#625f72" }
+
+current_playing = { fg = "#e0dcff", modifiers = ["Bold"] }
+page_desc = { fg = "#ead9ff", modifiers = ["Bold"] }
+playlist_desc = { fg = "#e4dfef", modifiers = ["Dim"] }
+table_header = { fg = "#f6d4ff" }
+selection = { fg = "#000000", bg = "#ac9bc6" }
+
+secondary_row = { fg = "#c1becd" }
+like = { fg = "#f6d4ff" }
+lyrics_played = { fg = "#c1becd", modifiers = ["Dim"] }
+lyrics_playing = { fg = "#e0dcff", modifiers = ["Bold"] }

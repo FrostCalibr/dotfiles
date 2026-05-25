@@ -19,3 +19,8 @@ page_desc = { fg = "{{colors.secondary.default.hex}}", modifiers = ["Bold"] }
 playlist_desc = { fg = "{{colors.on_surface_variant.default.hex}}", modifiers = ["Dim"] }
 table_header = { fg = "{{colors.tertiary.default.hex}}" }
 selection = { fg = "{{colors.on_secondary_container.default.hex}}", bg = "{{colors.secondary_container.default.hex}}" }
+
+secondary_row = { fg = "{{colors.outline.default.hex}}" }
+like = { fg = "{{colors.tertiary.default.hex}}" }
+lyrics_played = { fg = "{{colors.outline.default.hex}}", modifiers = ["Dim"] }
+lyrics_playing = { fg = "{{colors.primary.default.hex}}", modifiers = ["Bold"] }
