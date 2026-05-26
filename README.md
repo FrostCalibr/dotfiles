@@ -18,7 +18,7 @@ My personal [Hyprland](https://hyprland.org/) configuration.
 
 | Desktop                                  | Terminal                                  |
 | ---------------------------------------- | ----------------------------------------- |
-| ![desktop](showcase/20260526_160308.png) | ![terminal](showcase/20260526_160433.png) |
+| ![desktop](showcase/20260526_192546.png) | ![terminal](showcase/20260526_192535.png) |
 
 </details>
 
@@ -26,9 +26,9 @@ My personal [Hyprland](https://hyprland.org/) configuration.
 <summary><b>More Shots</b></summary>
 <br>
 
-![shot3](showcase/20260526_160652.png) ![shot4](showcase/20260526_160823.png)
-![shot5](showcase/20260526_160855.png) ![shot6](showcase/20260526_161024.png)
-![shot7](showcase/20260526_161202.png) ![shot8](showcase/20260526_161419.png)
+![shot3](showcase/20260526_160652.png) ![shot4](showcase/20260526_160855.png)
+![shot5](showcase/20260526_161024.png) ![shot6](showcase/20260526_161202.png)
+![shot7](showcase/20260526_161419.png)
 
 </details>
 
