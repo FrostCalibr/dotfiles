@@ -72,3 +72,8 @@ output_path = '~/.config/Kvantum/matugen/matugen.kvconfig'
 [templates.kvantum_svg]
 input_path = './templates/kvantum-colors.svg'
 output_path = '~/.config/Kvantum/matugen/matugen.svg'
+
+[templates.emacs]
+input_path = '~/.config/matugen/templates/emacs-theme.el'
+output_path = '~/.emacs.d/themes/matugen-theme.el'
+post_hook = "emacsclient -e '(my/reload-matugen-theme)'"
