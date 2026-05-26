@@ -16,9 +16,9 @@ CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/current_wallpaper"
 RELOAD_KITTY=true
 
 # Matugen settings - tweak to your taste
-MATUGEN_SCHEME="scheme-neutral"
-MATUGEN_CONTRAST="0.3"
-MATUGEN_LIGHTNESS="0.1"   # brightens dark mode; try 0.2-0.5
+MATUGEN_SCHEME="scheme-expressive"
+MATUGEN_CONTRAST="0.6"
+MATUGEN_LIGHTNESS="0.2"   # brightens dark mode; try 0.2-0.5
 MATUGEN_PREFER="value"
 MATUGEN_COLOR_INDEX=""    # 0 = most dominant color; leave empty to let matugen choose
 

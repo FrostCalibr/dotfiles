@@ -10,7 +10,7 @@ from gi.repository import Gtk, Adw, Gdk, Gio, GLib
 import os, re, glob, random, threading, subprocess
 
 # Update these to match your setup
-SCRIPT        = os.path.expanduser("./wallpaper.sh")
+SCRIPT        = os.path.expanduser("wallpaper.sh")
 WALLPAPER_DIR = os.path.expanduser("~/Pictures/Wallpaper")
 
 SCHEMES = [

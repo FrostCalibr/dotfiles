@@ -4,15 +4,29 @@
 # Outputs text + CSS class for background gradient fill
 #===============================================================
 
-# No player? Hide
-playerctl status >/dev/null 2>&1 || exit 0
+IGNORED=("firefox" "chromium" "brave" "librewolf")
 
-STATUS=$(playerctl status 2>/dev/null)
-POS=$(playerctl position 2>/dev/null)
-LEN=$(playerctl metadata mpris:length 2>/dev/null)
-ARTIST=$(playerctl metadata xesam:artist 2>/dev/null)
-TITLE=$(playerctl metadata xesam:title 2>/dev/null)
-PLAYER=$(playerctl metadata --format '{{playerName}}' 2>/dev/null)
+# Find first non-ignored active player
+PLAYER_INSTANCE=$(playerctl --list-all 2>/dev/null | while read -r p; do
+    name=$(echo "$p" | cut -d'.' -f1 | tr '[:upper:]' '[:lower:]')
+    for ignored in "${IGNORED[@]}"; do
+        [[ "$name" == *"$ignored"* ]] && continue 2
+    done
+    echo "$p"
+    break
+done)
+
+# No valid player? Hide
+[[ -z "$PLAYER_INSTANCE" ]] && exit 0
+
+P="--player=$PLAYER_INSTANCE"
+
+STATUS=$(playerctl $P status 2>/dev/null)
+POS=$(playerctl $P position 2>/dev/null)
+LEN=$(playerctl $P metadata mpris:length 2>/dev/null)
+ARTIST=$(playerctl $P metadata xesam:artist 2>/dev/null)
+TITLE=$(playerctl $P metadata xesam:title 2>/dev/null)
+PLAYER=$(playerctl $P metadata --format '{{playerName}}' 2>/dev/null)
 
 # Fallbacks
 [[ -z "$ARTIST" ]] && ARTIST="Unknown"
@@ -20,7 +34,7 @@ PLAYER=$(playerctl metadata --format '{{playerName}}' 2>/dev/null)
 
 # Icon selection
 ICON=""
-[[ "$PLAYER" == "mpv" ]] && ICON=" "
+[[ "$PLAYER" == "mpv" ]] && ICON=""
 [[ "$STATUS" == "Paused" ]] && ICON=""
 
 # Format text
