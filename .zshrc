@@ -27,6 +27,7 @@ alias i='yay -S'
 alias s='pacseek'
 alias sp='spotify_player'
 alias ghg='ghgrab --out "~/github"'
+alias ems='emacs -nw'
 # --- 4. Suggestions & Highlighting Config ---
 # We put completion FIRST so it prioritizes current files over history
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
