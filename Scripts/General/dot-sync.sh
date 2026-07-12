@@ -33,6 +33,16 @@ TRACKED=(
     "swayosd:$CONFIG/swayosd:config/swayosd"
     "waybar:$CONFIG/waybar:config/waybar"
     "Scripts:$HOME/Scripts:Scripts"
+    "quickshell:$CONFIG/quickshell:config/quickshell"
+    "zed:$CONFIG/zed:config/zed"
+    "niri:$CONFIG/niri:config/niri"
+    "fastfetch:$CONFIG/fastfetch:config/fastfetch"
+    "bottom:$CONFIG/bottom:config/bottom"
+    "htop:$CONFIG/htop:config/htop"
+    "wtf:$CONFIG/wtf:config/wtf"
+    "Kvantum:$CONFIG/Kvantum:config/Kvantum"
+    "VSCodium-settings:$CONFIG/VSCodium/User/settings.json:config/VSCodium/User/settings.json"
+    "gitconfig:$HOME/.gitconfig:.gitconfig"
 )
 
 # ── Helpers ───────────────────────────────────────────────────────────────────

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "source": "/home/end_frost/.config/fastfetch/arch.txt",
+    "type": "auto",
+    "padding": {
+      "top": 2,
+      "right": 4
+    }
+  },
+  "display": {
+    "separator": " ",
+    "color": {
+      "keys": "magenta"
+    }
+  },
+  "modules": [
+    "title",
+    "separator",
+    {
+      "type": "custom",
+      "format": "┌─────────────────── Hardware ───────────────────┐",
+      "color": "bright_black"
+    },
+    {
+      "type": "host",
+      "key": "│  PC      ",
+      "keyColor": "green"
+    },
+    {
+      "type": "cpu",
+      "key": "│ ├ CPU     ",
+      "keyColor": "green",
+      "format": "Intel Core i3-1115G4 @ 4.10 GHz",
+      "temp": true
+    },
+    {
+      "type": "gpu",
+      "key": "│ ├ GPU     ",
+      "keyColor": "green",
+      "format": "Intel UHD Graphics G4 @ 1.25 GHz"
+    },
+    {
+      "type": "memory",
+      "key": "│ ├ MEM     ",
+      "keyColor": "green",
+      "format": "{1} / {2} ({3})"
+    },
+    {
+      "type": "disk",
+      "key": "│ └󰋊 DSK     ",
+      "keyColor": "green",
+      "format": "{1} / {2} ({3})"
+    },
+    {
+      "type": "custom",
+      "format": "└────────────────────────────────────────────────┘",
+      "color": "bright_black"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "┌────────────────── Environment ─────────────────┐",
+      "color": "bright_black"
+    },
+    {
+      "type": "os",
+      "key": "│  OS      ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "kernel",
+      "key": "│ ├ KERN    ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "display",
+      "key": "│ ├󱄄 DIS     ",
+      "keyColor": "yellow",
+      "format": "{1}x{2} @ {3}Hz"
+    },
+    {
+      "type": "terminal",
+      "key": "│ └ TERM    ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "custom",
+      "format": "└────────────────────────────────────────────────┘",
+      "color": "bright_black"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "┌─────────────────── Context ────────────────────┐",
+      "color": "bright_black"
+    },
+    {
+      "type": "command",
+      "key": "│ 󰔟 AGE     ",
+      "keyColor": "blue",
+      "text": "echo $(( ($(date +%s) - $(date -d $(head -n1 /var/log/pacman.log | cut -d' ' -f1 | tr -d '[]') +%s)) / 86400 )) days"
+    },
+    {
+      "type": "uptime",
+      "key": "│ 󱑮 UP      ",
+      "keyColor": "blue"
+    },
+    {
+      "type": "command",
+      "key": "│ └󰉼 THEME   ",
+      "keyColor": "blue",
+      "text": "awk -F' *= *' '/^theme/{print $2}' ~/.config/ghostty/config"
+    },
+    {
+      "type": "custom",
+      "format": "└────────────────────────────────────────────────┘",
+      "color": "bright_black"
+    }
+  ]
+}

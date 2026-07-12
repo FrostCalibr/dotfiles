@@ -1,0 +1,21 @@
+{
+    "editor.fontFamily": "'JetBrainsMono Nerd Font', monospace",
+    "editor.fontWeight": "550",
+    "editor.fontLigatures": true,
+    "workbench.settings.applyToAllProfiles": [
+        "editor.fontFamily"
+    ],
+    "terminal.integrated.fontFamily": "monospace",
+    "editor.fontSize": 15,
+    "workbench.colorTheme": "Catppuccin Dark",
+    "workbench.editorAssociations": {
+        "{git,gitlens,chat-editing-snapshot-text-model,copilot,git-graph,git-graph-3}:/**/*.qrc": "default",
+        "*.qrc": "qt-core.qrcEditor"
+    },
+    "qt-core.additionalQtPaths": [
+        {
+            "name": "Qt-5.15.19-linux-g++-x86_64_from_PATH",
+            "path": "/usr/bin/qmake"
+        }
+    ]
+}

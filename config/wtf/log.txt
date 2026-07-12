@@ -1,0 +1,4 @@
+2026/06/04 20:27:38 log.go:23: Protocol version: auto
+2026/06/04 20:27:38 log.go:23: Network: tcp
+2026/06/04 20:30:08 log.go:23: Protocol version: auto
+2026/06/04 20:30:08 log.go:23: Network: tcp
