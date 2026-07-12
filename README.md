@@ -45,9 +45,9 @@ My personal [Hyprland](https://hyprland.org/) configuration.
 | **Text Editors / IDEs** | [Neovim](https://neovim.io/), [Micro](https://github.com/zyedidia/micro), [VSCodium](https://vscodium.com/) |
 | **Shell & Prompt** | Zsh + [Starship](https://starship.rs/) |
 | **System Monitors** | [Btop](https://github.com/aristocratos/btop), [Htop](https://htop.dev/) |
-| **Desktop Shell / Widgets** | [Quickshell](https://github.com/outfoxxed/quickshell) |
+| **Desktop Shell / Widgets** | [Quickshell](https://github.com/quickshell-mirror/quickshell) |
 | **Notification Center / OSD** | [SwayNC](https://github.com/ErikReider/SwayNotificationCenter), [SwayOSD](https://github.com/ErikReider/swayosd) |
-| **Theme / Color Generators** | [Matugen](https://github.com/InioAsano/matugen), [Kvantum](https://github.com/tsujan/Kvantum) |
+| **Theme / Color Generators** | [Matugen](https://github.com/InioX/matugen), [Kvantum](https://github.com/tsujan/Kvantum) |
 | **Music Player & Theme** | [Spotify Player](https://github.com/aome510/spotify-player) + [Spicetify](https://spicetify.app/) |
 | **Clipboard & Visualizers** | [Greenclip](https://github.com/erebe/greenclip), [Cava](https://github.com/karlstav/cava) (audio visualizer), [Fastfetch](https://github.com/fastfetch-cli/fastfetch) |
 | **AUR Helper / Search** | [Yay](https://github.com/Jguer/yay), [Pacseek](https://github.com/moson-ick/pacseek) |
