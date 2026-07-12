@@ -1,1 +1,8 @@
-{}
+{
+    "F7": "command:lsp start",
+    "F8": "command:lsp format",
+    "Alt-h": "command:lsp hover",
+    "Alt-d": "command:lsp goto-definition",
+    "Alt-r": "command:lsp find-references"
+}
+

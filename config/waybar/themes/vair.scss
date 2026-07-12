@@ -1,0 +1,458 @@
+@import 'colors.css';
+
+$radius: 99px;
+
+/* --- Base Aliases --- */
+@define-color background @window_bg_color;
+@define-color foreground @window_fg_color;
+@define-color accent @primary;
+
+/* --- Global Settings --- */
+* {
+  all: unset;
+  font-family: 'JetBrainsMono Nerd Font Propo';
+  font-size: 13px;
+  font-weight: bold;
+  color: @foreground;
+}
+
+/* --- Waybar Window --- */
+window#waybar {
+  background-color: transparent;
+  transition-property: background-color;
+  transition-duration: .5s;
+}
+
+window#waybar.empty #window {
+  background: transparent;
+  background-color: transparent;
+  border: none;
+  border-radius: $radius;
+  color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+#waybar.empty .modules-center {
+  opacity: 0;
+}
+
+/* --- Tooltip --- */
+tooltip {
+  opacity: 1;
+  padding: 6px 12px;
+  background: @surface_container_highest;
+  border: 1px solid alpha(@outline, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px @shadow;
+  font-size: 12px;
+}
+
+tooltip label {
+  color: @on_surface;
+  font-weight: normal;
+}
+
+/* --- Left Groups --- */
+#left1 {
+  border-radius: $radius;
+  border: 1px solid alpha(@outline, 0.25);
+  margin: 0px 6px 3px 6px;
+  background-color: mix(@surface_container, @primary, 0.08);
+  box-shadow: 0px 2px 4px @shadow;
+}
+
+#left2 {
+  border-radius: $radius;
+  border: 1px solid alpha(@outline, 0.25);
+  margin: 0px 6px 3px 6px;
+  background-color: mix(@surface_container, @secondary, 0.08);
+  box-shadow: 0px 2px 4px @shadow;
+}
+
+#left3 {
+  /* MPRIS container - styled separately below */
+}
+
+
+/* --- MPRIS Pill  --- */
+@define-color waybar_bg mix(@surface_container, @secondary, 0.08);
+
+#custom-music-pill {
+    border-radius: $radius;
+    border: 1px solid alpha(@outline, 0.25);
+    padding: 0 14px;
+    margin: 1px 6px 3px 6px;
+    min-width: 140px;
+    font-family: 'JetBrainsMono Nerd Font Propo';
+    font-size: 13px;
+    font-weight: 700;
+    background-color: @waybar_bg;
+    color: @foreground;
+    box-shadow: 0px 2px 4px @shadow;
+    transition: all 0.5s ease;
+}
+
+/* Primary progress fill */
+#custom-music-pill.pct-0  { background: linear-gradient(to right, alpha(@primary, 0.35) 0%,   @waybar_bg 0%);  }
+#custom-music-pill.pct-10 { background: linear-gradient(to right, alpha(@primary, 0.35) 10%,  @waybar_bg 10%); }
+#custom-music-pill.pct-20 { background: linear-gradient(to right, alpha(@primary, 0.35) 20%,  @waybar_bg 20%); }
+#custom-music-pill.pct-30 { background: linear-gradient(to right, alpha(@primary, 0.35) 30%,  @waybar_bg 30%); }
+#custom-music-pill.pct-40 { background: linear-gradient(to right, alpha(@primary, 0.35) 40%,  @waybar_bg 40%); }
+#custom-music-pill.pct-50 { background: linear-gradient(to right, alpha(@primary, 0.35) 50%,  @waybar_bg 50%); }
+#custom-music-pill.pct-60 { background: linear-gradient(to right, alpha(@primary, 0.35) 60%,  @waybar_bg 60%); }
+#custom-music-pill.pct-70 { background: linear-gradient(to right, alpha(@primary, 0.35) 70%,  @waybar_bg 70%); }
+#custom-music-pill.pct-80 { background: linear-gradient(to right, alpha(@primary, 0.35) 80%,  @waybar_bg 80%); }
+#custom-music-pill.pct-90 { background: linear-gradient(to right, alpha(@primary, 0.35) 90%,  @waybar_bg 90%); }
+
+/* Full: solid primary, dark text */
+#custom-music-pill.pct-100 {
+    background-color: @primary;
+    color: @on_primary;
+}
+
+/* Paused: muted */
+#custom-music-pill.paused {
+    color: alpha(@foreground, 0.5);
+    border-color: alpha(@outline, 0.15);
+    background-color: alpha(@surface_container_low, 0.7);
+}
+
+/* Hover */
+#custom-music-pill:hover {
+    border-color: alpha(@outline, 0.50);
+    box-shadow: 0px 3px 6px @shadow;
+}
+
+#custom-arch {
+  font-size: 18px;
+  padding: 0 10px 0 10px;
+  min-width: 30px;
+  color: @secondary;
+}
+#custom-color-picker {
+    font-size: 15px;
+    padding: 0 6px;
+    min-width: 30px;
+    color: @tertiary;
+}
+#custom-ocr {
+    font-size: 15px;
+    padding: 0 6px;
+    min-width: 30px;
+    color: @secondary;
+}
+#custom-qr-tool {
+    font-size: 15px;
+    padding: 0 6px;
+    min-width: 30px;
+    color: @primary;
+}
+
+#custom-expand-icon {
+  padding: 0 10px;
+  min-width: 0px;
+  color: @on_surface_variant;
+}
+
+/* --- Center Groups --- */
+#center-window {
+  border-radius: $radius;
+  border: 1px solid alpha(@outline, 0.25);
+  margin: 0px 6px 3px 6px;
+  background-color: mix(@surface_container, @tertiary, 0.08);
+  box-shadow: 0px 2px 4px @shadow;
+  transition: all 0.3s ease-in-out;
+}
+
+#center-clock {
+  border-radius: $radius;
+  border: 1px solid alpha(@outline, 0.25);
+  margin: 0px 6px 3px 6px;
+  background-color: mix(@surface_container, @primary, 0.08);
+  box-shadow: 0px 2px 4px @shadow;
+}
+
+/* --- Right Modules Container --- */
+.modules-right {
+  background-color: transparent;
+  border: none;
+  margin: 0px 6px 3px 6px;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* ---  kspaces --- */
+#workspaces {
+  border-radius: $radius;
+  background-color: transparent;
+  margin: 0px;
+  padding: 2px;
+}
+
+#workspaces button {
+  padding: 0px 8px;
+  margin: 2px 4px;
+  border-radius: $radius;
+  background-color: alpha(@surface_bright, 0.35);
+  color: alpha(@foreground, 0.65);
+  transition: all 0.25s ease-in-out;
+  opacity: 0.85;
+  min-width: 30px;
+  font-size: 15px;
+}
+
+/* ALL active workspaces — with or without windows — same solid color */
+#workspaces button.active,
+#workspaces button.empty.active {
+  min-width: 44px;
+  border-radius: $radius;
+  background-color: @primary;
+  color: @on_primary;
+  opacity: 1.0;
+  box-shadow: 0px 1px 4px alpha(@primary, 0.4);
+  transition: all 0.25s ease-in-out;
+}
+
+#workspaces button.active label,
+#workspaces button.empty.active label {
+  color: @on_primary;
+  font-weight: bold;
+}
+
+/* Occupied but not active */
+#workspaces button:not(.empty):not(.active) {
+  background-color: @surface_container_highest;
+  color: @foreground;
+  opacity: 0.9;
+}
+
+/* Empty and not active */
+#workspaces button.empty {
+  background-color: alpha(@surface_bright, 0.15);
+  color: alpha(@foreground, 0.45);
+  opacity: 0.6;
+}
+
+/* Hover */
+#workspaces button:hover {
+  background-color: alpha(@primary, 0.4);
+  color: @foreground;
+}
+
+#workspaces button.active:hover,
+#workspaces button.empty.active:hover {
+  background-color: @primary;
+  color: @on_primary;
+  box-shadow: 0px 2px 6px alpha(@primary, 0.5);
+}
+
+/* --- General Modules --- */
+#tray,
+#window,
+#mpris {
+  min-width: 14px;
+  margin: 1px 3px 1px 3px;
+  padding: 0 3px;
+}
+
+/* Right modules & expander pills */
+#group-tray-expander,
+#cpu,
+#memory,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-notification {
+  background-color: mix(@surface_container, @primary, 0.08);
+  border: 1px solid alpha(@outline, 0.25);
+  border-radius: $radius;
+  margin: 1px 3px 3px 3px;
+  padding: 0 10px;
+  font-size: 14px;
+  box-shadow: 0px 2px 4px @shadow;
+  transition: all 0.3s ease;
+}
+
+#group-tray-expander:hover,
+#cpu:hover,
+#memory:hover,
+#battery:hover,
+#network:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#custom-notification:hover {
+  background-color: @surface_container_high;
+  border-color: alpha(@outline, 0.4);
+  box-shadow: 0px 3px 6px @shadow;
+}
+
+/* --- Module Specific Colors --- */
+
+/* Clock */
+#clock {
+  padding: 0 10px;
+  border-radius: $radius;
+  border: 1px solid alpha(@outline, 0.25);
+  background-color: mix(@surface_container, @primary, 0.08);
+  min-width: 0;
+  color: @primary;
+  font-size: 14px;
+}
+
+/* Window Title - Tertiary Accent */
+#window {
+  color: @tertiary;
+}
+
+/* System Tray */
+#group-tray-expander {
+  border-radius: $radius;
+  background-color: @surface_container;
+  border: 1px solid alpha(@outline, 0.25);
+  margin-right: 0px;
+  padding: 0 9px 0 9px;
+  color: @on_surface_variant;
+}
+
+#tray {
+  background-color: transparent;
+  border-radius: $radius;
+  margin: 0 2px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+.tray-group-item {
+  min-width: 0;
+  margin: 0;
+  padding: 0 2px;
+}
+
+/* Bluetooth - Secondary */
+#bluetooth {
+  color: @secondary;
+}
+
+#bluetooth.connected {
+  color: @primary;
+  border-color: alpha(@primary, 0.45);
+}
+
+/* Network - Tertiary */
+#network {
+  color: @tertiary;
+}
+
+/* Audio - Primary */
+#pulseaudio {
+  color: @primary;
+}
+
+#pulseaudio.muted {
+  color: @error;
+  border-color: alpha(@error, 0.45);
+}
+
+/* CPU & Memory - Surface Variant */
+#cpu {
+  color: @on_surface_variant;
+}
+
+#memory {
+  color: @on_surface_variant;
+}
+
+/* Battery - Dynamic States */
+#battery {
+  color: @foreground;
+}
+
+#battery.charging {
+  color: @primary;
+  border-color: alpha(@primary, 0.45);
+}
+
+#battery.plugged {
+  color: @secondary;
+  border-color: alpha(@secondary, 0.45);
+}
+
+#battery.warning {
+  color: @error_container;
+  border-color: alpha(@error_container, 0.45);
+}
+
+#battery.critical:not(.charging) {
+  color: @error;
+  border-color: @error;
+  animation-name: blink2;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* MPRIS */
+#mpris {
+  border-radius: $radius;
+  border: 2px solid alpha(@secondary, 0.35);
+  margin: 0px 8px 3px 8px;
+  background-color: @surface_container;
+  box-shadow: 0px 1px 3px @shadow;
+  transition-property: background-color;
+  transition-duration: .5s;
+  animation: repeat;
+  animation-name: blink;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  color: @on_surface;
+}
+
+#mpris.playing {
+  color: @secondary;
+  border-color: alpha(@secondary, 0.6);
+}
+
+/* Notification */
+#custom-notification {
+  color: @primary;
+}
+
+#custom-notification.dnd {
+  color: @on_surface_variant;
+}
+
+/* Hidden */
+.hidden {
+  opacity: 0;
+}
+
+/* --- Keyframes --- */
+@keyframes blink {
+  to {
+    color: @on_surface_variant;
+  }
+}
+
+@keyframes blink-inhibitor {
+  to {
+    color: @surface_container;
+  }
+}
+
+@keyframes blink2 {
+  to {
+    background-color: transparent;
+    color: @error_container;
+  }
+}

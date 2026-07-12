@@ -9,12 +9,14 @@
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run,filebrowser,window";
+	modi:                       "drun,window,clipboard:/home/m_frost/.config/rofi/scripts/rofi-cliphist.sh";
     show-icons:                 true;
+    kb-row-down:                "Down,Control+n,Alt+Tab";
+    kb-row-up:                  "Up,Control+p,Alt+ISO_Left_Tab,Alt+Shift+Tab";
     display-drun:               "󱕕 ";
-    display-run:                " ";
-    display-filebrowser:        " ";
     display-window:             " ";
+    display-clipboard:          "󰅌 ";
+    display-dmenu:              "󰍉 ";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
 }
@@ -236,7 +238,7 @@ element alternate.active {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        24px;
+    size:                        18px;
     cursor:                      inherit;
 }
 element-text {
@@ -251,7 +253,7 @@ element-text {
 /*****----- Mode Switcher -----*****/
 mode-switcher{
     enabled:                     true;
-    spacing:                     10px;
+    spacing:                     8px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
@@ -259,9 +261,14 @@ mode-switcher{
     border-color:                @border-colour;
     background-color:            transparent;
     text-color:                  @foreground-colour;
+    width:                       140px;
 }
 button {
-    padding:                     5px 10px;
+    font:                        "JetBrains Mono Nerd Font Propo SemiBold 10";
+    padding:                     5px 0px;
+    width:                       40px;
+    horizontal-align:            0.5;
+    vertical-align:              0.5;
     border:                      0px solid;
     border-radius:               10px;
     border-color:                @border-colour;

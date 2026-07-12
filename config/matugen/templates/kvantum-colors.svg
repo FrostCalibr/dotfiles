@@ -877,96 +877,96 @@
      y="930.26"
      width="8"
      height="4"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <rect
      id="itemview-pressed-bottom"
      x="52"
      y="942.26"
      width="8"
      height="4"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-pressed"
      d="m52 934.26h8v8h-8z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-pressed-topright"
      d="m60 930.26c4 0 4 4 4 4h-4z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-pressed-bottomright"
      d="m60 942.26h4s0 4-4 4z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <rect
      id="itemview-pressed-right"
      x="60"
      y="934.26"
      width="4"
      height="8"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <rect
      id="itemview-pressed-left"
      x="48"
      y="934.26"
      width="4"
      height="8"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-pressed-topleft"
      d="m52 930.26v4h-4s0-4 4-4z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-pressed-bottomleft"
      d="m48 942.26h4v4c-4 0-4-4-4-4z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <rect
      id="itemview-toggled-top"
      x="71"
      y="930.26"
      width="8"
      height="4"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <rect
      id="itemview-toggled-bottom"
      x="71"
      y="942.26"
      width="8"
      height="4"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-toggled"
      d="m71 934.26h8v8h-8z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <rect
      id="itemview-toggled-right"
      x="79"
      y="934.26"
      width="4"
      height="8"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-toggled-topright"
      d="m79 930.26c4 0 4 4 4 4h-4z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-toggled-bottomright"
      d="m79 942.26h4s0 4-4 4z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <rect
      id="itemview-toggled-left"
      x="67"
      y="934.26"
      width="4"
      height="8"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-toggled-topleft"
      d="m71 930.26v4h-4s0-4 4-4z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <path
      id="itemview-toggled-bottomleft"
      d="m67 942.26h4v4c-4 0-4-4-4-4z"
-     fill="{{colors.primary.default.hex}}" />
+     fill="{{colors.on_primary.default.hex}}" />
   <rect
      id="itemview-focused-top"
      x="33"

@@ -1,0 +1,117 @@
+$mainMod = SUPER 
+$terminal = kitty
+$fileManager = dolphin
+
+# Scratchpad — Super+` to toggle dropdown terminal
+bind = $mainMod, grave, exec, kitty --class kitty-scratchpad
+bind = $mainMod, grave, togglespecialworkspace, scratchpad
+
+windowrule {
+    name = scratchpad-rule
+    match:class = ^kitty-scratchpad$
+    workspace = special:scratchpad
+    float = true
+    size = 900 550
+    center = true
+}
+
+
+bind = $mainMod, T, exec, $terminal
+bind = $mainMod, Q, killactive,
+bind = $mainMod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit
+bind = $mainMod, E, exec, $fileManager
+bind = $mainMod, F, togglefloating,
+# System Utilities
+bind = $mainMod SHIFT, P, exec, ~/.config/hypr/scripts/hypr-helper.sh ultralow
+bind = $mainMod SHIFT, C, exec, ~/.config/hypr/scripts/hypr-helper.sh caffeine
+bind = $mainMod, L, exec, ~/.config/rofi/powermenu/type-2/powermenu.sh
+bind = $mainMod, period, exec, ~/.config/rofi/launchers/emoji/launcher.sh
+bind = $mainMod SHIFT, slash, exec, ~/.config/hypr/scripts/keybinds.py
+
+
+#ScreenShots
+
+bind = $mainMod, S, exec, grimblast -n copy screen  
+bind = $mainMod ALT, S, exec, python ~/.config/hypr/scripts/postimg-upload.py
+bind = $mainMod SHIFT, S, exec, grimblast -n copysave area
+bind = $mainMod SHIFT, O, exec, ~/.config/hypr/scripts/hypr-helper.sh ocr
+bind = $mainMod, G, exec, ~/.config/hypr/scripts/hypr-helper.sh qr
+bind = $mainMod, R, exec, ~/.config/hypr/scripts/hypr-helper.sh record
+
+
+bind = $mainMod, V, exec, rofi -show clipboard -theme ~/.config/rofi/launchers/type-1/style-5.rasi
+
+
+bind = $mainMod SHIFT, V, exec, ~/.config/hypr/scripts/voice-dictate.sh
+bindr = SUPER, SUPER_L, exec, killall rofi || ~/.config/rofi/launchers/type-1/launcher.sh
+bind = ALT, TAB, exec, ~/.config/hypr/scripts/rofi-window.sh
+bindrt = ALT, ALT_L, exec, ~/.config/hypr/scripts/rofi-window.sh release
+bindrt = ALT, ALT_R, exec, ~/.config/hypr/scripts/rofi-window.sh release
+
+cursor {
+    zoom_factor = 1.0
+    zoom_rigid = false
+}
+
+bind = SUPER, equal, exec, ~/.config/hypr/scripts/hypr-helper.sh zoom in
+bind = SUPER, minus, exec, ~/.config/hypr/scripts/hypr-helper.sh zoom out
+bind = SUPER, X,     exec, ~/.config/hypr/scripts/hypr-helper.sh zoom reset
+
+# Move focus with mainMod + arrow keys
+bind = $mainMod, left, movefocus, l
+bind = $mainMod, right, movefocus, r
+bind = $mainMod, up, movefocus, u
+bind = $mainMod, down, movefocus, d
+
+# Switch workspaces with mainMod + [0-9]
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
+
+# Move active window to a workspace with mainMod + ALT + [0-9]
+bind = $mainMod ALT, 1, movetoworkspace, 1
+bind = $mainMod ALT, 2, movetoworkspace, 2
+bind = $mainMod ALT, 3, movetoworkspace, 3
+bind = $mainMod ALT, 4, movetoworkspace, 4
+bind = $mainMod ALT, 5, movetoworkspace, 5
+bind = $mainMod ALT, 6, movetoworkspace, 6
+bind = $mainMod ALT, 7, movetoworkspace, 7
+bind = $mainMod ALT, 8, movetoworkspace, 8
+bind = $mainMod ALT, 9, movetoworkspace, 9
+bind = $mainMod ALT, 0, movetoworkspace, 10
+
+
+
+# Move/resize windows with mainMod + LMB/RMB and dragging
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+
+# Volume
+bindel = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.5
+bindel = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindl  = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindl  = , XF86AudioMicMute, exec, pamixer --default-source -t
+
+# Brightness
+bindel = , XF86MonBrightnessUp, exec, brightnessctl set 5%+
+bindel = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
+
+# Media
+bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioPrev, exec, playerctl prev
+
+# HyprExpo Plugin Binding
+#bind = $mainMod, tab, hyprexpo:expo, toggle
+
+# Trigger screen lock immediately when laptop lid is closed
+bindl = , switch:on:Lid Switch, exec, loginctl lock-session
+
+

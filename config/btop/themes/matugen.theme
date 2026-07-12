@@ -7,80 +7,80 @@
 # Use "start", "mid" and "end" for three color gradient
 
 # Main background — use surface so light-palette fg colors actually contrast
-theme[main_bg]="#2b292d"
+theme[main_bg]="#2b292b"
 
 # Main text color
-theme[main_fg]="#f8f3f6"
+theme[main_fg]="#ffffff"
 
 # Title color for boxes
-theme[title]="#cccadb"
+theme[title]="#e7e5ec"
 
 # Highlight color for keyboard shortcuts
-theme[hi_fg]="#cdcad5"
+theme[hi_fg]="#e8e5e8"
 
 # Background color of selected item in processes box
-theme[selected_bg]="#cccadb"
+theme[selected_bg]="#e7e5ec"
 
 # Foreground color of selected item in processes box
-theme[selected_fg]="#333346"
+theme[selected_fg]="#212330"
 
 # Color of inactive/disabled text
-theme[inactive_fg]="#cecacc"
+theme[inactive_fg]="#fcfaff"
 
 # Misc colors for processes box including mini cpu graphs, details memory graph and details status text
-theme[proc_misc]="#cac8e2"
+theme[proc_misc]="#f0e4d8"
 
 # Cpu box outline color
-theme[cpu_box]="#aaa8aa"
+theme[cpu_box]="#d1ced5"
 
 # Memory/disks box outline color
-theme[mem_box]="#aaa8aa"
+theme[mem_box]="#d1ced5"
 
 # Net up/down box outline color
-theme[net_box]="#aaa8aa"
+theme[net_box]="#d1ced5"
 
 # Processes box outline color
-theme[proc_box]="#aaa8aa"
+theme[proc_box]="#d1ced5"
 
 # Box divider line and small boxes line color
-theme[div_line]="#838182"
+theme[div_line]="#adacb2"
 
 # Temperature graph colors — secondary(cool) → primary(warm) → error_container(danger deep red)
-theme[temp_start]="#cdcad5"
-theme[temp_mid]="#cccadb"
-theme[temp_end]="#f83b34"
+theme[temp_start]="#e8e5e8"
+theme[temp_mid]="#e7e5ec"
+theme[temp_end]="#ff8477"
 
 # CPU graph colors — secondary(cool) → primary(warm) → error_container(danger deep red)
-theme[cpu_start]="#615f71"
-theme[cpu_mid]="#82808b"
-theme[cpu_end]="#f83b34"
+theme[cpu_start]="#585860"
+theme[cpu_mid]="#aeacb0"
+theme[cpu_end]="#ff8477"
 
 # Mem/Disk free meter
-theme[free_start]="#cdcad5"
+theme[free_start]="#e8e5e8"
 theme[free_mid]=""
-theme[free_end]="#82808b"
+theme[free_end]="#aeacb0"
 
 # Mem/Disk cached meter
-theme[cached_start]="#cac8e2"
+theme[cached_start]="#f0e4d8"
 theme[cached_mid]=""
-theme[cached_end]="#7f7e96"
+theme[cached_end]="#b5ada0"
 
 # Mem/Disk available meter
-theme[available_start]="#cccadb"
+theme[available_start]="#e7e5ec"
 theme[available_mid]=""
-theme[available_end]="#807f90"
+theme[available_end]="#adacb4"
 
 # Mem/Disk used meter — error_container(deep) → error(light) so full=alarming
-theme[used_start]="#f83b34"
+theme[used_start]="#ff8477"
 theme[used_mid]=""
-theme[used_end]="#ffb8af"
+theme[used_end]="#ffdeda"
 
 # Download graph colors — primary family (warm/pink)
-theme[download_start]="#807f90"
-theme[download_mid]="#cccadb"
-theme[download_end]="#ffffff"
+theme[download_start]="#adacb4"
+theme[download_mid]="#e7e5ec"
+theme[download_end]="#000000"
 
 # Upload graph colors — tertiary family (amber/distinct from download)
-theme[upload_start]="#7f7e96"
-theme[upload_mid]="#cac8e2"
-theme[upload_end]="#ffffff"
+theme[upload_start]="#b5ada0"
+theme[upload_mid]="#f0e4d8"
+theme[upload_end]="#000000"

@@ -1,9 +1,7 @@
 from playwright.sync_api import sync_playwright
-import requests
 import subprocess
 import os
 from datetime import datetime
-import playwright
 
 now = datetime.now()
 timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")

@@ -1,0 +1,101 @@
+@import 'colors.css';
+
+$radius: 0px;
+
+/* --- Base Aliases --- */
+@define-color background #000000;
+@define-color foreground #33ff33;
+
+/* --- Global Settings --- */
+* {
+  all: unset;
+  font-family: 'JetBrainsMono Nerd Font Propo';
+  font-size: 13px;
+  font-weight: bold;
+  color: #33ff33;
+  text-shadow: 0 0 2px rgba(51, 255, 51, 0.6);
+}
+
+/* --- Waybar Window --- */
+window#waybar {
+  background-color: #000000;
+  border-bottom: 2px solid #33ff33;
+}
+
+/* --- Tooltip --- */
+tooltip {
+  background-color: #000000;
+  border: 1px solid #33ff33;
+  padding: 6px;
+}
+
+tooltip label {
+  color: #33ff33;
+}
+
+/* --- Containers --- */
+#left1, #left2, #center-window, #center-clock {
+  background-color: transparent;
+  border: 1px solid #33ff33;
+  margin: 3px 4px;
+  padding: 0 6px;
+}
+
+.modules-right {
+  background-color: transparent;
+  border: none;
+  margin: 0px;
+  padding: 0;
+}
+
+/* --- Workspaces --- */
+#workspaces button {
+  padding: 0px 6px;
+  margin: 2px 2px;
+  border: 1px solid transparent;
+  color: rgba(51, 255, 51, 0.4);
+}
+
+#workspaces button.active {
+  border: 1px solid #33ff33;
+  background-color: #33ff33;
+  color: #000000;
+  text-shadow: none;
+}
+
+#workspaces button:hover {
+  border: 1px solid #33ff33;
+  color: #33ff33;
+}
+
+/* --- Right Modules --- */
+#group-tray-expander,
+#cpu,
+#memory,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-notification {
+  border: 1px solid #33ff33;
+  margin: 2px 3px;
+  padding: 0px 6px;
+}
+
+#battery.warning {
+  background-color: rgba(51, 255, 51, 0.2);
+}
+
+#battery.critical {
+  animation-name: blink2;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#custom-music-pill {
+  border: 1px solid #33ff33;
+  margin: 3px 4px;
+  padding: 0 10px;
+}

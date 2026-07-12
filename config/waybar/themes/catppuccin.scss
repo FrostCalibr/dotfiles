@@ -1,0 +1,144 @@
+@import 'colors.css';
+
+$radius: 8px;
+
+/* --- Base Aliases --- */
+@define-color background #24273a;
+@define-color foreground #cad3f5;
+@define-color accent #b7bdf8;
+
+/* --- Global Settings --- */
+* {
+  all: unset;
+  font-family: 'JetBrainsMono Nerd Font Propo';
+  font-size: 13px;
+  font-weight: bold;
+  color: @foreground;
+}
+
+/* --- Waybar Window --- */
+window#waybar {
+  background-color: transparent;
+}
+
+/* --- Tooltip --- */
+tooltip {
+  background: #1e2030;
+  border: 1px solid #b7bdf8;
+  border-radius: $radius;
+  padding: 6px;
+}
+
+tooltip label {
+  color: #cad3f5;
+}
+
+/* --- Containers --- */
+#left1, #left2, #center-window, #center-clock {
+  background-color: #24273a;
+  border: 1px solid rgba(183, 189, 248, 0.3);
+  border-radius: $radius;
+  margin: 3px 6px;
+  padding: 0 6px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#left2 {
+  border-color: rgba(138, 173, 244, 0.3);
+}
+
+#center-window {
+  border-color: rgba(245, 189, 135, 0.3);
+}
+
+#center-clock {
+  border-color: rgba(166, 218, 149, 0.3);
+}
+
+.modules-right {
+  background-color: transparent;
+  border: none;
+  margin: 0px 6px;
+  padding: 0;
+}
+
+/* --- Workspaces --- */
+#workspaces button {
+  padding: 0px 6px;
+  margin: 2px 3px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.03);
+  color: rgba(202, 211, 245, 0.5);
+  transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+  background-color: #b7bdf8;
+  color: #24273a;
+  box-shadow: 0px 0px 6px rgba(183, 189, 248, 0.4);
+}
+
+#workspaces button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* --- Right Modules --- */
+#group-tray-expander,
+#cpu,
+#memory,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-notification {
+  background-color: #24273a;
+  border: 1px solid rgba(183, 189, 248, 0.25);
+  border-radius: $radius;
+  margin: 2px 4px;
+  padding: 0px 8px;
+  transition: all 0.3s ease;
+}
+
+#pulseaudio {
+  color: #eed49f;
+  border-color: rgba(238, 212, 159, 0.3);
+}
+
+#network {
+  color: #8aadf4;
+  border-color: rgba(138, 173, 244, 0.3);
+}
+
+#bluetooth {
+  color: #f5bde6;
+  border-color: rgba(245, 189, 230, 0.3);
+}
+
+#battery {
+  color: #a6da95;
+  border-color: rgba(166, 218, 149, 0.3);
+}
+
+#battery.warning {
+  color: #f5a97f;
+  border-color: rgba(245, 169, 127, 0.4);
+}
+
+#battery.critical {
+  color: #ed8796;
+  border-color: #ed8796;
+  box-shadow: 0px 0px 4px rgba(237, 135, 150, 0.4);
+}
+
+#custom-notification {
+  color: #f5bde6;
+}
+
+#custom-music-pill {
+  background-color: #24273a;
+  border: 1px solid rgba(183, 189, 248, 0.3);
+  border-radius: $radius;
+  margin: 3px 6px;
+  padding: 0 10px;
+}

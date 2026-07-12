@@ -1,0 +1,281 @@
+{
+    "reload_style_on_change": true,
+    "position": "top",
+    "mod": "dock",
+    "margin-top": 2,
+    "height": 27,
+    "margin-left": 5,
+    "margin-right": 5,
+    "margin-bottom": 2,
+
+    "custom/arch": {
+        "format": "󰣇",
+        "on-click": "~/.config/rofi/scripts/launcher_t1",
+        "tooltip": false
+    },
+    "custom/color-picker": {
+        "format": "󰏘",
+        "on-click": "~/Scripts/waybar/color-picker.sh",
+        "tooltip": "Color Picker"
+    },
+    "custom/ocr": {
+        "format": "󰚞",
+        "on-click": "~/.config/hypr/scripts/ocr.sh",
+        "tooltip": "OCR Screen Selection"
+    },
+    "custom/qr-tool": {
+        "format": "󰐪",
+        "on-click": "~/.config/hypr/scripts/qr-tool.sh",
+        "tooltip": "QR Scanner & Generator"
+    },
+    "custom/music-pill": {
+        "exec": "~/Scripts/waybar/mpris-pill.sh",
+        "return-type": "json",
+        "interval": 3,
+        "format": "{}",
+        "on-click": "playerctl --player=$(playerctl --list-all | grep -Ev 'firefox|chromium|brave|librewolf' | head -1) play-pause",
+        "tooltip": true
+    },
+    "group/left1": {
+        "orientation": "inherit",
+        "modules": [
+            "custom/arch"
+        ]
+    },
+    "group/left2": {
+        "orientation": "inherit",
+        "modules": ["hyprland/workspaces"]
+    },
+    "group/left3": {
+        "orientation": "inherit",
+        "modules": ["custom/music-pill"]
+    },
+    "group/center-clock": {
+        "orientation": "inherit",
+        "modules": ["clock"]
+    },
+    "group/center-window": {
+        "orientation": "inherit",
+        "modules": ["hyprland/window"]
+    },
+    "modules-left": ["group/left1", "group/left2", "group/left3"],
+    "modules-center": ["group/center-window", "group/center-clock"],
+    "modules-right": [
+        "group/tray-expander",
+        "pulseaudio",
+        "bluetooth",
+        "network",
+        "battery",
+        "custom/notification"
+    ],
+    "hyprland/workspaces": {
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10"
+        },
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        }
+    },
+
+    "hyprland/window": {
+        "format": "{title} - {class}",
+        "max-length": 20,
+        "rewrite": {
+            " - ": "",
+            "(.*?) - Chromium - chromium": "  $1 ",
+            "(.*chrome)...(.*)": " $1 ",
+            "(.*helium)...(.*)": " $1 ",
+            "(.*LibreWolf)...(.*)": "󰈹 $1 ",
+            "(.*) - brave-browser": " $1 ",
+            "(.*nvim)...(.*)": " $2 ",
+            "(.*code) - (.*)": "󰨞  $1 ",
+            "^.*btop( .*|$)": "󰧨 BTOP $1",
+            "^.*cmatrix( .*|$)": "󰘨 MATRIX $1 ",
+            "(.*) - gimp.*": " $1 ",
+            "(.*) - Spotify": " $1 ",
+            "(.*) - com.mitchellh.ghostty": "󰊠 $1 ",
+            "(.*) - kitty": " $1 ",
+            "(.*) - org.gnome.Nautilus": "󰣆  $1 ",
+            "(.*) - fish": "  [$1] ",
+            "(.*Steam)...(.*)": "  $1",
+            "(.*) - discord": "󰙯 $1 ",
+            "(.*) - com.obsproject.Studio": " $1 ",
+            "(.*) - vlc": "󰕼 $1 ",
+            "(.*imv)...(.*).. (.*)": "   $2"
+        }
+    },
+    "cpu": {
+        "interval": 2,
+        "format": "{usage:02}%",
+        "on-click": "kitty -e btop"
+    },
+    "memory": {
+        "interval": 2,
+        "format": "󰘚{percentage:02}%",
+        "on-click": "kitty -e btop"
+    },
+    "clock": {
+        "format": "󰥔  {:%I:%M %a}",
+        "format-alt": "  {0:%I:%M} {0:%F}",
+        "tooltip-format": "<span>{calendar}</span>",
+        "calendar": {
+            "mode": "month",
+            "weeks-pos": "right",
+            "mode-mon-col": 3,
+            "on-click-right": "mode",
+            "format": {
+                "month": "<span color='#ffead3'><b>{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b>{}</b></span>"
+            }
+        }
+    },
+
+    "network": {
+        "format-icons": [
+            "󰤯",
+            "󰤟",
+            "󰤢",
+            "󰤥",
+            "󰤨"
+        ],
+        "format": "{icon}",
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰀂",
+        "format-disconnected": "󰤭",
+        "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+        "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+        "tooltip-format-disconnected": "Disconnected",
+        "interval": 3,
+        "nospacing": 1,
+        "on-click": "kitty --title wifi -e wifitui"
+    },
+    "battery": {
+        "format": "{capacity}%{icon}",
+        "format-discharging": "{capacity}% {icon}",
+        "format-charging": "{capacity}% {icon}",
+        "format-plugged": "",
+        "format-icons": {
+            "charging": [
+                "󰢜",
+                "󰂆",
+                "󰂇",
+                "󰂈",
+                "󰢝",
+                "󰂉",
+                "󰢞",
+                "󰂊",
+                "󰂋",
+                "󰂅"
+            ],
+            "default": [
+                "󰁺",
+                "󰁻",
+                "󰁼",
+                "󰁽",
+                "󰁾",
+                "󰁿",
+                "󰂀",
+                "󰂁",
+                "󰂂",
+                "󰁹"
+            ]
+        },
+        "format-full": "󰂅 {capacity}%",
+        "tooltip-format-discharging": "{power:>1.0f}W down {timeTo}",
+        "tooltip-format-charging": "{power:>1.0f}W up {timeTo}",
+        "interval": 5,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        }
+    },
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-connected": "󰂱",
+        "tooltip-format": "Devices connected: {num_connections}",
+        "on-click": "kitty --title bluetooth -e bluetui"
+    },
+
+    "pulseaudio": {
+        "format": "{icon}",
+        "on-click": "pavucontrol",
+        "on-click-right": "pamixer -t",
+        "tooltip-format": "Playing at {volume}%",
+        "scroll-step": 5,
+        "format-muted": "󰝟 ",
+        "format-icons": {
+            "default": ["", "", ""]
+        }
+    },
+    "group/tray-expander": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 600,
+            "transition-left-to-right": false,
+            "children-class": "tray-group-item"
+        },
+        "modules": [
+            "custom/expand-icon",
+            "custom/color-picker",
+            "custom/ocr",
+            "custom/qr-tool",
+            "cpu",
+            "memory"
+        ]
+    },
+    "custom/expand-icon": {
+        "format": "󰇙",
+        "tooltip": false
+    },
+    "tray": {
+        "icon-size": 12,
+        "spacing": 4
+    },
+    "mpris": {
+        "format": "{player_icon} {artist} - {title}",
+        "format-paused": "<span color='grey'>{status_icon} {dynamic}</span>",
+        "max-length": 35,
+        "interval": 1,
+        "player-icons": {
+            "default": "",
+            "mpv": "🎵"
+        },
+        "status-icons": {
+            "paused": ""
+        },
+        "ignored-players": ["firefox", "chromium", "brave"]
+    },
+    "custom/notification": {
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󰂚",
+            "none": "󰂜",
+            "dnd-notification": "󰂛",
+            "dnd-none": "󰂛"
+        },
+        "return-type": "json",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "tooltip": false,
+        "escape": true
+    }
+}

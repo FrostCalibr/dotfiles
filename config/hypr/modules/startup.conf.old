@@ -1,0 +1,11 @@
+exec-once = waybar 
+exec-once = hypridle
+exec-once = awww-daemon
+exec-once = quickshell -p ~/.config/quickshell/quickshell-osd
+exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+#cliphist daemon
+exec-once = wl-paste --type text --watch cliphist store
+exec-once = wl-paste --type image --watch cliphist store
+
+

@@ -2,6 +2,10 @@
 command = "ResumePause"
 key_sequence = "space"
 
+[[actions]]
+action = "DeleteFromPlaylist"
+key_sequence = "d d"
+
 [[keymaps]]
 command = "NextTrack"
 key_sequence = "C-right"

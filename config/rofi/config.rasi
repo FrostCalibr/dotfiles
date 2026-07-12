@@ -1,12 +1,13 @@
 /**
  * Rofi Config
- * Cleaned up — only settings that actually do something
  **/
 
 configuration {
     /*---------- General ----------*/
-    modi:                   "drun,run,filebrowser,window";
+    modi:                   "drun,window,clipboard:/home/m_frost/.config/rofi/scripts/rofi-cliphist.sh";
     case-sensitive:         false;
+    kb-row-down:            "Down,Control+n,Alt+Tab";
+    kb-row-up:              "Up,Control+p,Alt+ISO_Left_Tab,Alt+Shift+Tab";
     cycle:                  true;
     normalize-match:        true;
     show-icons:             true;
@@ -52,9 +53,9 @@ configuration {
 
     /*---------- Display labels ----------*/
     display-drun:           "Apps";
-    display-run:            "Run";
     display-window:         "Windows";
-    display-filebrowser:    "Files";
+    display-clipboard:      "Clipboard";
+    display-dmenu:          "Search";
 
     /*---------- Timeout ----------*/
     timeout {

@@ -1,0 +1,458 @@
+@import 'colors.css';
+
+$radius: 99px;
+
+/* --- Base Aliases --- */
+@define-color background @window_bg_color;
+@define-color foreground #ffffff;
+@define-color accent @primary;
+
+/* --- Global Settings --- */
+* {
+  all: unset;
+  font-family: 'JetBrainsMono Nerd Font Propo';
+  font-size: 13px;
+  font-weight: bold;
+  color: @foreground;
+}
+
+/* --- Waybar Window --- */
+window#waybar {
+  background-color: transparent;
+  transition-property: background-color;
+  transition-duration: .5s;
+}
+
+window#waybar.empty #window {
+  background: transparent;
+  background-color: transparent;
+  border: none;
+  border-radius: $radius;
+  color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+#waybar.empty .modules-center {
+  opacity: 0;
+}
+
+/* --- Tooltip --- */
+tooltip {
+  opacity: 1;
+  padding: 6px 12px;
+  background: rgba(10, 10, 15, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+}
+
+tooltip label {
+  color: #ffffff;
+  font-weight: normal;
+}
+
+/* --- Left Groups --- */
+#left1 {
+  border-radius: $radius;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 0px 6px 3px 6px;
+  background-color: rgba(10, 10, 15, 0.68);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+#left2 {
+  border-radius: $radius;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 0px 6px 3px 6px;
+  background-color: rgba(10, 10, 15, 0.68);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+#left3 {
+  /* MPRIS container - styled separately below */
+}
+
+
+/* --- MPRIS Pill  --- */
+@define-color waybar_bg @surface_container;
+
+#custom-music-pill {
+    border-radius: $radius;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0 14px;
+    margin: 1px 6px 3px 6px;
+    min-width: 140px;
+    font-family: 'JetBrainsMono Nerd Font Propo';
+    font-size: 13px;
+    font-weight: 700;
+    background-color: rgba(10, 10, 15, 0.68);
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    transition: all 0.5s ease;
+}
+
+/* Primary glass progress fill */
+#custom-music-pill.pct-0  { background: linear-gradient(to right, alpha(@primary, 0.35) 0%,   rgba(10, 10, 15, 0.68) 0%);  }
+#custom-music-pill.pct-10 { background: linear-gradient(to right, alpha(@primary, 0.35) 10%,  rgba(10, 10, 15, 0.68) 10%); }
+#custom-music-pill.pct-20 { background: linear-gradient(to right, alpha(@primary, 0.35) 20%,  rgba(10, 10, 15, 0.68) 20%); }
+#custom-music-pill.pct-30 { background: linear-gradient(to right, alpha(@primary, 0.35) 30%,  rgba(10, 10, 15, 0.68) 30%); }
+#custom-music-pill.pct-40 { background: linear-gradient(to right, alpha(@primary, 0.35) 40%,  rgba(10, 10, 15, 0.68) 40%); }
+#custom-music-pill.pct-50 { background: linear-gradient(to right, alpha(@primary, 0.35) 50%,  rgba(10, 10, 15, 0.68) 50%); }
+#custom-music-pill.pct-60 { background: linear-gradient(to right, alpha(@primary, 0.35) 60%,  rgba(10, 10, 15, 0.68) 60%); }
+#custom-music-pill.pct-70 { background: linear-gradient(to right, alpha(@primary, 0.35) 70%,  rgba(10, 10, 15, 0.68) 70%); }
+#custom-music-pill.pct-80 { background: linear-gradient(to right, alpha(@primary, 0.35) 80%,  rgba(10, 10, 15, 0.68) 80%); }
+#custom-music-pill.pct-90 { background: linear-gradient(to right, alpha(@primary, 0.35) 90%,  rgba(10, 10, 15, 0.68) 90%); }
+
+/* Full: solid primary glass, dark text */
+#custom-music-pill.pct-100 {
+    background-color: alpha(@primary, 0.40);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Paused: muted */
+#custom-music-pill.paused {
+    color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(10, 10, 15, 0.4);
+}
+
+/* Hover: matches workspace hover */
+#custom-music-pill:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+#custom-arch {
+  font-size: 18px;
+  padding: 0 10px 0 10px;
+  min-width: 30px;
+  color: @secondary;
+}
+#custom-color-picker {
+    font-size: 15px;
+    padding: 0 6px;
+    min-width: 30px;
+    color: @tertiary;
+}
+#custom-ocr {
+    font-size: 15px;
+    padding: 0 6px;
+    min-width: 30px;
+    color: @secondary;
+}
+#custom-qr-tool {
+    font-size: 15px;
+    padding: 0 6px;
+    min-width: 30px;
+    color: @primary;
+}
+
+#custom-expand-icon {
+  padding: 0 10px;
+  min-width: 0px;
+  color: @on_surface_variant;
+}
+
+/* --- Center Groups --- */
+#center-window {
+  border-radius: $radius;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 0px 6px 3px 6px;
+  background-color: rgba(10, 10, 15, 0.68);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease-in-out;
+}
+
+#center-clock {
+  border-radius: $radius;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 0px 6px 3px 6px;
+  background-color: rgba(10, 10, 15, 0.68);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* --- Right Modules Container --- */
+.modules-right {
+  background-color: transparent;
+  border: none;
+  margin: 0px 6px 3px 6px;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* ---  kspaces --- */
+#workspaces {
+  border-radius: $radius;
+  background-color: transparent;
+  margin: 0px;
+  padding: 2px;
+}
+
+#workspaces button {
+  padding: 0px 8px;
+  margin: 2px 4px;
+  border-radius: $radius;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.25s ease-in-out;
+  opacity: 0.85;
+  min-width: 30px;
+  font-size: 15px;
+}
+
+/* ALL active workspaces — with or without windows — same solid color */
+#workspaces button.active,
+#workspaces button.empty.active {
+  min-width: 44px;
+  border-radius: $radius;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: @primary;
+  opacity: 1.0;
+  box-shadow: 0px 1px 4px alpha(@primary, 0.3);
+  transition: all 0.25s ease-in-out;
+}
+
+#workspaces button.active label,
+#workspaces button.empty.active label {
+  color: @primary;
+  font-weight: bold;
+}
+
+/* Occupied but not active */
+#workspaces button:not(.empty):not(.active) {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+/* Empty and not active */
+#workspaces button.empty {
+  background-color: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.35);
+  opacity: 0.6;
+}
+
+/* Hover */
+#workspaces button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+#workspaces button.active:hover,
+#workspaces button.empty.active:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  color: @primary;
+  box-shadow: 0px 2px 6px alpha(@primary, 0.4);
+}
+
+/* --- General Modules --- */
+#tray,
+#window,
+#mpris {
+  min-width: 14px;
+  margin: 1px 3px 1px 3px;
+  padding: 0 3px;
+}
+
+/* Right modules & expander pills */
+#group-tray-expander,
+#cpu,
+#memory,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-notification {
+  background-color: rgba(10, 10, 15, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: $radius;
+  margin: 1px 3px 3px 3px;
+  padding: 0 10px;
+  font-size: 14px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+#group-tray-expander:hover,
+#cpu:hover,
+#memory:hover,
+#battery:hover,
+#network:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#custom-notification:hover {
+  background-color: rgba(10, 10, 15, 0.85);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Module Specific Colors --- */
+
+/* Clock - Primary Accent */
+#clock {
+  padding: 0 10px;
+  border-radius: $radius;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(10, 10, 15, 0.68);
+  min-width: 0;
+  color: @primary;
+  font-size: 14px;
+}
+
+/* Window Title - Tertiary Accent */
+#window {
+  color: @tertiary;
+}
+
+/* System Tray */
+#group-tray-expander {
+  border-radius: $radius;
+  background-color: rgba(10, 10, 15, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin-right: 0px;
+  padding: 0 9px 0 9px;
+  color: @on_surface_variant;
+}
+
+#tray {
+  background-color: transparent;
+  border-radius: $radius;
+  margin: 0 2px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+.tray-group-item {
+  min-width: 0;
+  margin: 0;
+  padding: 0 2px;
+}
+
+/* Bluetooth - Secondary */
+#bluetooth {
+  color: @secondary;
+}
+
+#bluetooth.connected {
+  color: @primary;
+  border-color: alpha(@primary, 0.35);
+}
+
+/* Network - Tertiary */
+#network {
+  color: @tertiary;
+}
+
+/* Audio - Primary */
+#pulseaudio {
+  color: @primary;
+}
+
+#pulseaudio.muted {
+  color: @error;
+  border-color: alpha(@error, 0.35);
+}
+
+/* CPU & Memory - Surface Variant */
+#cpu {
+  color: @on_surface_variant;
+}
+
+#memory {
+  color: @on_surface_variant;
+}
+
+/* Battery - Dynamic States */
+#battery {
+  color: #ffffff;
+}
+
+#battery.charging {
+  color: @primary;
+  border-color: alpha(@primary, 0.35);
+}
+
+#battery.plugged {
+  color: @secondary;
+  border-color: alpha(@secondary, 0.35);
+}
+
+#battery.warning {
+  color: @error_container;
+  border-color: alpha(@error_container, 0.35);
+}
+
+#battery.critical:not(.charging) {
+  color: @error;
+  border-color: @error;
+  animation-name: blink2;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* MPRIS - Non Progress bar; Abandoned, If you dont want progress bar, switch to this */
+#mpris {
+  border-radius: $radius;
+  border: 2px solid alpha(@secondary, 0.3);
+  margin: 0px 8px 3px 8px;
+  background-color: rgba(10, 10, 15, 0.68);
+  box-shadow: 0px 1px 3px @shadow;
+  transition-property: background-color;
+  transition-duration: .5s;
+  animation: repeat;
+  animation-name: blink;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  color: @on_surface;
+}
+
+#mpris.playing {
+  color: @secondary;
+  border-color: alpha(@secondary, 0.6);
+}
+
+/* Notification */
+#custom-notification {
+  color: @primary;
+}
+
+#custom-notification.dnd {
+  color: @on_surface_variant;
+}
+
+/* Hidden */
+.hidden {
+  opacity: 0;
+}
+
+/* --- Keyframes --- */
+@keyframes blink {
+  to {
+    color: @on_surface_variant;
+  }
+}
+
+@keyframes blink-inhibitor {
+  to {
+    color: @surface_container;
+  }
+}
+
+@keyframes blink2 {
+  to {
+    background-color: transparent;
+    color: @error_container;
+  }
+}

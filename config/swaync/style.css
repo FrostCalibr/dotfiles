@@ -1,340 +1,404 @@
-@import "colors/matugen.css";
+/*
+ * SwayNC Control Center Theme
+ * Follows Material Design 3 (Material You) Guidelines
+ * Imports the same Matugen colors.css template used in Waybar
+ */
+
+@import url("/home/m_frost/.config/waybar/colors.css");
 
 * {
-	font-family: "JetBrainsMono Propo Nerd Font Propo";
-	font-weight: 700;
-	all: unset;
-
-	/* Global style variables */
-	--border-radius: 16px;
-	--border-radius-s: 8px;
-	--border-radius-xl: 18px;
-
-	/* Shadows: set to none to disable */
-	--shadow: 2px 4px 10px rgba(0,0,0,0.15);
+  font-family: "JetBrainsMono Propo Nerd Font Propo", "Outfit", "Inter", sans-serif;
+  font-weight: 600;
+  all: unset;
 }
 
+/* --- 1. Control Center Shell --- */
+.control-center {
+  background-color: @surface_container_low;
+  border: 1px solid alpha(@outline_variant, 0.12);
+  border-radius: 20px;
+  margin: 8px;
+  padding: 12px;
+}
+
+/* Placeholder text when list is empty */
+.control-center-list-placeholder {
+  color: alpha(@on_surface, 0.38);
+  font-size: 1.1rem;
+}
+
+/* Outer wrapper for notification rows */
+.widget-notifications {
+  margin: 0;
+  margin-bottom: 12px; /* Standardized Section Gap */
+}
+
+/* --- 2. Notification Cards (M3 Cards - Neutral Surface) --- */
 .notification {
-	padding: 5px;
+  padding: 4px 0; /* Standardized Item Gap: 4px top + 4px bottom = 8px total */
 }
 
 .notification-background {
-	background: @notification-bg;
-	border-radius: var(--border-radius);
-	margin: 8px;
-	padding: 0;
-	/* box-shadow: none; */
+  background-color: @surface_container_high;
+  border: 1px solid alpha(@outline_variant, 0.3); /* Subtle Card Edge */
+  border-radius: 16px;
+  margin: 0 4px;
+  padding: 8px;
+  transition: background-color 0.15s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.notification-background .close-button {
-	margin: 6px;
-	padding: 2px;
-	border-radius: 6px;
-	background: transparent;
-	color: @text;
-}
-
-.notification-background .close-button:hover {
-	background: @hover;
-}
-
-.notification.critical {
-	border: 2px solid @urgent;
-	border-radius: var(--border-radius);
+.notification-background:hover {
+  background-color: mix(@surface_container_high, @on_surface, 0.04);
 }
 
 .notification-content {
-	color: @text;
-	margin: 10px;
-	font-weight: 700;
+  color: @on_surface;
+  margin: 8px;
 }
 
 .notification-content .text-box {
-	margin: 0 0 0 15px;
+  margin: 0 0 0 12px;
 }
 
 .notification-content .time {
-	padding: 2px;
-	font-size: 0.95rem;
-	font-weight: 800;
+  padding: 2px;
+  color: @on_surface_variant;
+  font-size: 0.85rem;
 }
 
 .notification-content .summary {
-	font-size: 1rem;
-	font-weight: 800;
-	padding: 2px 0;
-	margin-bottom: 2px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: @on_surface;
+  padding: 2px 0;
 }
 
 .notification-content .body {
-	color: @text-alt;
-	font-size: 0.8rem;
+  color: @on_surface_variant;
+  font-size: 0.9rem;
 }
 
-.notification-row .inline-reply-entry,
-.notification-row .inline-reply-button {
-	margin: 5px -5px -5px -5px;
-	padding: 10px 15px;
-	border-radius: var(--border-radius);
-	background: @background-alt;
-}
-
-.notification-row .inline-reply-entry {
-	margin-right: 10px;
-}
-
-.notification-row .inline-reply-button:hover {
-	background: @selected;
-}
-
-.notification-alt-actions {
-	padding: 5px 0;
-}
-
+/* Action button configurations inside notifications */
 .notification-action {
-	font-weight: 700;
-	border-radius: var(--border-radius);
-	background: @hover;
-	color: @text;
-	margin: 0 5px;
-	padding: 10px 0;
+  font-weight: 700;
+  border-radius: 12px;
+  background-color: @surface_container_highest;
+  color: @primary;
+  margin: 4px;
+  padding: 8px 16px;
+  transition: background-color 0.15s cubic-bezier(0.2, 0, 0, 1),
+              color 0.15s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.notification-action:hover,
+.notification-action:hover {
+  background-color: mix(@surface_container_highest, @on_surface, 0.08);
+}
+
 .notification-action:active {
-	background: @selected;
+  background-color: mix(@surface_container_highest, @on_surface, 0.12);
 }
 
-.control-center {
-	background: @center-bg;
-	border-radius: var(--border-radius);
-	margin: 5px;
-	padding: 5px 5px 0 5px;
+/* Close buttons on notifications (hidden in center, standard M3 fade) */
+.notification-background .close-button {
+  margin: 4px;
+  padding: 4px;
+  border-radius: 50%;
+  background: transparent;
+  color: @on_surface_variant;
+  transition: background-color 0.15s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.control-center .notification-background {
-	background: @center-notification-bg;
-	box-shadow: var(--shadow);
+.notification-background .close-button:hover {
+  background-color: alpha(@on_surface, 0.08);
 }
 
-/* Remove close buttons in notification center */
 .control-center .notification-background .close-button,
 .notification-group-close-button {
-	opacity: 0;
+  opacity: 0;
 }
 
+/* Critical notification styling */
+.notification.critical {
+  border: 1px solid @error;
+}
+
+/* --- 3. DND (Do Not Disturb Card - Muted Secondary Accent) --- */
+.widget-dnd {
+  padding: 12px 16px; 
+  border-radius: 16px;
+  background-color: @surface_container_high;
+  border: 1px solid alpha(@outline_variant, 0.3); /* Subtle Card Edge */
+  color: @on_surface;
+  margin-bottom: 12px; /* Standardized Section Gap */
+}
+
+.widget-dnd > label {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* DND M3 Toggle Switch (Calm Secondary Tone) */
+.widget-dnd switch {
+  background-color: @surface_container_highest;
+  border-radius: 14px;
+  padding: 2px;
+  transition: background-color 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.widget-dnd switch slider {
+  background-color: @outline;
+  border-radius: 12px;
+  transition: background-color 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.widget-dnd switch:checked {
+  background-color: @secondary_container;
+}
+
+.widget-dnd switch:checked slider {
+  background-color: @on_secondary_container;
+}
+
+/* --- 4. Buttons Grid (Control Toggles & Actions) --- */
+.widget-buttons-grid {
+  border-radius: 16px;
+  padding: 8px 12px;
+  background-color: @surface_container_high;
+  border: 1px solid alpha(@outline_variant, 0.3); /* Subtle Card Edge */
+  margin-bottom: 0; /* Standardized Section Gap: Last item relies on panel padding */
+}
+
+/* Shared button base styling */
+.widget-buttons-grid button {
+  padding: 12px; 
+  margin: 4px;
+  border-radius: 12px;
+  transition: background-color 0.15s cubic-bezier(0.2, 0, 0, 1),
+              margin 0.15s cubic-bezier(0.2, 0, 0, 1),
+              padding 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.widget-buttons-grid button:active {
+  margin: 5px;
+  padding: 11px;
+}
+
+.widget-buttons-grid button > label {
+  font-family: "CaskaydiaCove Nerd Font Propo", "JetBrainsMono Propo Nerd Font Propo";
+  font-size: 18px;
+}
+
+/* --- EXPLICIT BUTTON CONFIGURATIONS --- */
+
+/* Button 1 (Power Saving - Toggle) */
+.widget-buttons-grid flowboxchild:nth-child(1) button {
+  background-color: @surface_container_highest;
+}
+.widget-buttons-grid flowboxchild:nth-child(1) button > label {
+  color: @on_surface_variant;
+}
+.widget-buttons-grid flowboxchild:nth-child(1) button:hover {
+  background-color: mix(@surface_container_highest, @on_surface, 0.08);
+}
+.widget-buttons-grid flowboxchild:nth-child(1) button:checked {
+  background-color: @primary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(1) button:checked > label {
+  color: @on_primary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(1) button:checked:hover {
+  background-color: mix(@primary_container, @on_primary_container, 0.08);
+}
+
+/* Button 2 (Caffeine - Toggle) */
+.widget-buttons-grid flowboxchild:nth-child(2) button {
+  background-color: @surface_container_highest;
+}
+.widget-buttons-grid flowboxchild:nth-child(2) button > label {
+  color: @on_surface_variant;
+}
+.widget-buttons-grid flowboxchild:nth-child(2) button:hover {
+  background-color: mix(@surface_container_highest, @on_surface, 0.08);
+}
+.widget-buttons-grid flowboxchild:nth-child(2) button:checked {
+  background-color: @primary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(2) button:checked > label {
+  color: @on_primary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(2) button:checked:hover {
+  background-color: mix(@primary_container, @on_primary_container, 0.08);
+}
+
+/* Button 3 (Mic Mute - Toggle) */
+.widget-buttons-grid flowboxchild:nth-child(3) button {
+  background-color: @surface_container_highest;
+}
+.widget-buttons-grid flowboxchild:nth-child(3) button > label {
+  color: @on_surface_variant;
+}
+.widget-buttons-grid flowboxchild:nth-child(3) button:hover {
+  background-color: mix(@surface_container_highest, @on_surface, 0.08);
+}
+.widget-buttons-grid flowboxchild:nth-child(3) button:checked {
+  background-color: @primary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(3) button:checked > label {
+  color: @on_primary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(3) button:checked:hover {
+  background-color: mix(@primary_container, @on_primary_container, 0.08);
+}
+
+/* Button 4 (System Monitor - Momentary Action) */
+.widget-buttons-grid flowboxchild:nth-child(4) button {
+  background-color: @secondary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(4) button > label {
+  color: @on_secondary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(4) button:hover {
+  background-color: mix(@secondary_container, @on_secondary_container, 0.08);
+}
+
+/* Button 5 (Max Brightness - Toggle) */
+.widget-buttons-grid flowboxchild:nth-child(5) button {
+  background-color: @surface_container_highest;
+}
+.widget-buttons-grid flowboxchild:nth-child(5) button > label {
+  color: @on_surface_variant;
+}
+.widget-buttons-grid flowboxchild:nth-child(5) button:hover {
+  background-color: mix(@surface_container_highest, @on_surface, 0.08);
+}
+.widget-buttons-grid flowboxchild:nth-child(5) button:checked {
+  background-color: @primary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(5) button:checked > label {
+  color: @on_primary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(5) button:checked:hover {
+  background-color: mix(@primary_container, @on_primary_container, 0.08);
+}
+
+/* Button 6 (Color Picker - Momentary Action) */
+.widget-buttons-grid flowboxchild:nth-child(6) button {
+  background-color: @secondary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(6) button > label {
+  color: @on_secondary_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(6) button:hover {
+  background-color: mix(@secondary_container, @on_secondary_container, 0.08);
+}
+
+/* Button 7 (Logout - Destructive Action) */
+.widget-buttons-grid flowboxchild:nth-child(7) button {
+  background-color: @error_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(7) button > label {
+  color: @on_error_container;
+}
+.widget-buttons-grid flowboxchild:nth-child(7) button:hover {
+  background-color: mix(@error_container, @on_error_container, 0.08);
+}
+
+/* --- 5. Media Player Widget (MPRIS Card - Expressive Tertiary Accent Container) --- */
+.widget-mpris {
+  background-color: @tertiary_container;
+  border: 1px solid alpha(@tertiary, 0.2); /* Tinted Edge */
+  border-radius: 16px;
+  margin-bottom: 12px; /* Standardized Section Gap */
+}
+
+.mpris-background {
+  border-radius: 14px;
+  margin: 3px;
+  background-color: @tertiary_container;
+}
+
+.mpris-overlay {
+  background-color: @tertiary_container;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.widget-mpris-album-art {
+  border-radius: 12px;
+  margin: 6px 4px;
+}
+
+.widget-mpris-title {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: @on_tertiary_container;
+  margin: 0 3px;
+}
+ 
+.widget-mpris-subtitle {
+  color: alpha(@on_tertiary_container, 0.7);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin: 2px 3px;
+}
+
+/* Control buttons box wrapper (Tonal mix inside Tertiary background) */
+.mpris-overlay > box:last-child {
+  border-radius: 12px;
+  padding: 4px;
+  background-color: alpha(@on_tertiary_container, 0.12);
+}
+
+/* Control buttons styling */
+.widget-mpris-player button {
+  padding: 6px;
+  margin: 0 4px;
+  color: @on_tertiary_container;
+  transition: background-color 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.widget-mpris-player button:hover {
+  border-radius: 8px;
+  background-color: alpha(@on_tertiary_container, 0.12);
+}
+
+/* --- 6. Notification Group headers and headers text --- */
 .notification-group {
-	transition: 200ms;
-}
-
-/* Notifications expanded-group extra margin */
-.notification-group:not(.collapsed) {
-	margin: 8px;
+  margin: 6px 0;
+  background-color: transparent;
 }
 
 .notification-group-headers,
 .notification-group-buttons {
-	color: @text;
-	font-weight: bold;
-	background: @background;
-	border-radius: var(--border-radius);
-	padding: 4px 8px; 
+  color: @on_surface;
+  background-color: @surface_container_highest;
+  border-radius: 12px;
+  padding: 6px 12px; 
 }
 
 .notification-group-headers > label {
-	margin: 0 3px;
-	font-size: 1rem;
+  margin: 0 4px;
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .notification-group-icon {
-	color: @text;
+  color: @primary;
 }
 
 .notification-group-buttons .image-button {
-	background: transparent;
-	color: @text;
-	padding: 4px;
-	border-radius: var(--border-radius);
+  background: transparent;
+  color: @on_surface;
+  padding: 4px;
+  border-radius: 8px;
+  transition: background-color 0.15s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .notification-group-buttons .image-button:hover {
-	background: @hover;
+  background-color: alpha(@on_surface, 0.08);
 }
 
-/* Widgets */
-.widget {
-	margin: 5px;
-	color: @text;
-}
-
-.widget-mpris-album-art {
-	border-radius: var(--border-radius);
-	margin: 6px 4px;
-}
-
-.widget-mpris-title {
-	font-weight: 700;
-	font-size: 1.2rem;
-	margin: 0 3px;
-}
- 
-.widget-mpris-subtitle {
-	color: @text-alt;
-	font-weight: 700;
-	font-size: 0.9rem;
-	margin: 0 3px;
-}
-
-.mpris-background {
-	border-radius: 14px;
-	margin: 3px;
-}
-
-.widget-mpris {
-	border-radius: var(--border-radius);
-	box-shadow: var(--shadow);
-}
-
-.mpris-overlay {
-	border-radius: var(--border-radius);
-	padding: 10px;
-	background: @background;
-}
-
-/* Control buttons container  */
-.mpris-overlay > box:last-child {
-	border-radius: var(--border-radius-xl);
-	padding: 0 5px;
-	background: alpha(@hover, .6);
-}
-
-/* Control buttons */
-.widget-mpris-player button {
-	padding: 5px;
-	margin: 0 2.5px;
-}
-
-/* Hover for control buttons */
-.widget-mpris-player button:hover {
-	border-radius: var(--border-radius-s);
-	background: @hover;
-}
-
-/* Do not disturb */
-.widget-dnd {
-	padding: 10px 15px; 
-	border-radius: var(--border-radius);
-	background: @background-alt;
-	box-shadow: var(--shadow);
-	color: @text;
-}
-
-.widget-dnd > label {
-	font-size: 1rem;
-	font-weight: 700;
-}
-
-.widget-dnd switch {
-	background: @hover;
-	border-radius: var(--border-radius-s);
-	box-shadow: none;
-	padding: 2px;
-	transition: 200ms;
-}
-
-.widget-dnd switch slider {
-	background: @text;
-	border-radius: var(--border-radius-s);
-}
-
-.widget-dnd switch:hover,
-.widget-dnd switch:checked {
-	background-color: @selected;
-}
-
-.widget-notifications {
-	margin: 0;
-}
-
-.widget-buttons-grid {
-	border-radius: var(--border-radius);
-	padding: 5px 15px;
-	margin-bottom: 5px;
-	background: @background-alt;
-	box-shadow: var(--shadow);
-}
-
-.widget-buttons-grid button {
-	padding: 10px; 
-	margin: 3px;
-	min-width: 2rem;
-	background: @hover;
-	border-radius: var(--border-radius);
-	transition: 200ms;
-}
-
-.widget-buttons-grid button > label {
-	font-family: "CaskaydiaCove Nerd Font Propo";
-	font-size: 16px;
-	color: @text;
-}
-
-.widget-buttons-grid button:hover {
-	background: @selected;
-}
-
-.widget-buttons-grid button:checked {
-	background-color: @text;
-}
-
-.widget-buttons-grid button:checked > label {
-	color: @background;
-}
-
-.widget-volume,
-.widget-backlight {
-	padding: 8px 14px;
-	margin: 5px 0;
-	border-radius: 12px;
-	color: @text;
-	font-weight: 800;
-	background: @background-alt;
-}
-
-.widget-volume label,
-.widget-backlight label {
-	font-size: 1.1rem;
-}
-
-.widget-volume slider,
-.widget-backlight slider {
-	border-radius: 24px;
-	margin: -8px;
-	background: @text;
-	box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 4px 4px rgba(0, 0, 0, 0.4);
-	opacity: 1;
-}
-
-.widget-volume trough,
-.widget-backlight trough {
-	background: @hover;
-	margin-left: 8px;
-	border-radius: 12px;  
-}
-
-.widget-volume highlight,
-.widget-backlight highlight {
-	padding: 3.5px;
-	border-radius: 12px;  
-	background: @text;  
-}
-
-/* Change color for placeholder when no notifications */
-.control-center-list-placeholder {
-	color: @text;
-}
-
-/* Avoid 'annoying' backgroud */
+/* Blank background window */
 .blank-window {  
-	background: transparent;  
+  background: transparent;  
 }

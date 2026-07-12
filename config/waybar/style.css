@@ -1,414 +1,483 @@
 @import 'colors.css';
 
-/* --- Base Aliases --- */
-@define-color background @window_bg_color;
-@define-color foreground @on_surface;
-@define-color accent @primary;
-
-/* --- Global Settings --- */
+/* --- Global Reset & Base Typography --- */
 * {
   all: unset;
-  font-family: 'JetBrainsMono Nerd Font Propo';
-  font-size: 12px;
-  font-weight: bold;
-  color: @foreground;
+  font-family: 'Outfit', 'Inter', 'JetBrainsMono Nerd Font Propo', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: @on_surface;
 }
 
-/* --- Waybar Window --- */
+/* --- Waybar Main Bar Container --- */
 window#waybar {
   background-color: transparent;
-  transition-property: background-color;
-  transition-duration: .5s;
 }
 
-window#waybar.empty #window {
-  background: transparent;
-  background-color: transparent;
-  border: none;
-  border-radius: 0;
-  color: transparent;
-  padding: 0;
-  margin: 0;
+window#waybar > box {
+  background-color: @surface_container_low;
+  border-radius: 16px;
+  border: 1px solid alpha(@outline, 0.12);
+  padding: 2px 8px;
 }
 
-#waybar.empty .modules-center {
-  opacity: 0;
+/* --- Common Base Cards / Pills (Elevation: Surface Container High) --- */
+#workspaces,
+#custom-music-pill,
+#custom-spacer,
+#window,
+#clock,
+#group-tray-expander,
+#group-hardware,
+#quicksettings,
+#system-status {
+  background-color: @surface_container_high;
+  border-radius: 16px;
+  padding: 3px 12px;
+  margin: 2px 6px;
+  border: 1px solid alpha(@outline, 0.08);
 }
 
-/* --- Tooltip --- */
-tooltip {
-  opacity: 1;
-  padding: 4px;
-  background: @surface_container;
-  border: 1px solid alpha(@outline, 0.8);
-  border-radius: 8px;
-  box-shadow: 1px 1px 3px 1px @shadow;
-  font-size: 12px;
+/* --- Transitions for Interactive States --- */
+/* Small state changes: hover/focus on interactive widgets (M3 standard easing) */
+#custom-arch,
+#workspaces button,
+#custom-music-pill,
+#window,
+#clock,
+#group-tray-expander,
+#group-hardware,
+#quicksettings #network,
+#quicksettings #bluetooth,
+#quicksettings #pulseaudio,
+#system-status #battery,
+#system-status #custom-notification {
+  transition: background-color 0.15s cubic-bezier(0.2, 0, 0, 1),
+              background-image 0.15s cubic-bezier(0.2, 0, 0, 1),
+              color 0.15s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.15s cubic-bezier(0.2, 0, 0, 1);
 }
 
-tooltip label {
-  color: @on_surface;
-  font-weight: normal;
+/* Medium state changes: workspace button switch width/background transition */
+#workspaces button {
+  transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+              color 0.2s cubic-bezier(0.2, 0, 0, 1),
+              min-width 0.2s cubic-bezier(0.2, 0, 0, 1),
+              padding 0.2s cubic-bezier(0.2, 0, 0, 1),
+              margin 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* --- Left Groups --- */
-#left1 {
-  border-radius: 26px;
-  border: 1px solid alpha(@primary, 0.3);
-  margin: 0px 8px 3px 8px;
-  background-color: @surface_container;
-  box-shadow: 0px 1px 3px @shadow;
+/* Active/Pressed state transition: simulate scale-down for standard cards */
+#custom-arch:active,
+#custom-music-pill:active,
+#clock:active,
+#quicksettings #network:active,
+#quicksettings #bluetooth:active,
+#quicksettings #pulseaudio:active,
+#system-status #battery:active,
+#system-status #custom-notification:active {
+  margin: 3px 7px;
+  padding: 2px 11px;
 }
 
-#left2 {
-  border-radius: 26px;
-  border: 1px solid alpha(@secondary, 0.3);
-  margin: 0px 8px 3px 8px;
-  background-color: @surface_container;
-  box-shadow: 0px 1px 3px @shadow;
+/* Active/Pressed state transition: simulate scale-down for workspace buttons */
+#workspaces button:active {
+  margin: 1px 3px;
+  padding: 1px 7px;
 }
 
-#left3 {
-  /* MPRIS container - styled separately below */
-}
-
-
-/* --- MPRIS Pill  --- */
-@define-color waybar_bg @surface_container;
-
-#custom-music-pill {
-    border-radius: 30px;
-    border: 0px solid alpha(@outline, 0.3);
-    padding: 0 14px;
-    margin: 1px 8px 3px 8px;
-    min-width: 140px;
-    font-family: 'JetBrainsMono Nerd Font Propo';
-    font-size: 13px;
-    font-weight: 700;
-    background-color: @waybar_bg;
-    color: shade(@foreground, 0.6);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
-    transition: all 0.5s ease;
-}
-
-/* Primary fill grows left-to-right on dark bg */
-#custom-music-pill.pct-0  { background: linear-gradient(to right, @primary 0%,  @waybar_bg 0%);  }
-#custom-music-pill.pct-10 { background: linear-gradient(to right, @primary 10%, @waybar_bg 10%); }
-#custom-music-pill.pct-20 { background: linear-gradient(to right, @primary 20%, @waybar_bg 20%); }
-#custom-music-pill.pct-30 { background: linear-gradient(to right, @primary 30%, @waybar_bg 30%); }
-#custom-music-pill.pct-40 { background: linear-gradient(to right, @primary 40%, @waybar_bg 40%); }
-#custom-music-pill.pct-50 { background: linear-gradient(to right, @primary 50%, @waybar_bg 50%); }
-#custom-music-pill.pct-60 { background: linear-gradient(to right, @primary 60%, @waybar_bg 60%); }
-#custom-music-pill.pct-70 { background: linear-gradient(to right, @primary 70%, @waybar_bg 70%); }
-#custom-music-pill.pct-80 { background: linear-gradient(to right, @primary 80%, @waybar_bg 80%); }
-#custom-music-pill.pct-90 { background: linear-gradient(to right, @primary 90%, @waybar_bg 90%); }
-
-/* Full: solid primary, dark text */
-#custom-music-pill.pct-100 {
-    background-color: @primary;
-    color: @waybar_bg;
-}
-
-/* Paused: muted */
-#custom-music-pill.paused {
-    color: @on_primary;
-    border-color: alpha(@outline, 0.2);
-    background-color: alpha(@background, 0.5);
-}
-
-/* Hover: matches workspace hover */
-#custom-music-pill:hover {
-    border-color: alpha(@foreground, 0.5);
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
-}
-
+/* --- 1. App Launcher (Circular FAB Style) --- */
 #custom-arch {
-  font-size: 21px;
-  padding: 0 5px 0 5px;
-  min-width: 30px;
-  color: @secondary;
-}
-#custom-color-picker {
-    font-size: 14px;
-    padding: 0 1px 0 1px;
-    min-width: 24px;
-    color: @tertiary;
+  background-color: @primary_container;
+  color: @on_primary_container;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 3px 12px;
+  margin: 2px 6px;
+  border-radius: 16px;
+  border: 1px solid alpha(@outline, 0.12);
 }
 
-#custom-expand-icon {
-  padding: 0 10px;
-  min-width: 0px;
-  color: @on_surface_variant;
+#custom-arch:hover {
+  background-color: mix(@primary_container, @on_primary_container, 0.08);
 }
 
-/* --- Center Groups --- */
-#center-window {
-  border-radius: 26px;
-  border: 1px solid alpha(@tertiary, 0.3);
-  margin: 0px 8px 3px 8px;
-  background-color: @surface_container;
-  box-shadow: 0px 1px 3px @shadow;
-  transition: all 0.3s ease-in-out;
+#custom-arch:active {
+  background-color: mix(@primary_container, @on_primary_container, 0.12);
 }
 
-#center-clock {
-  border-radius: 26px;
-  border: 1px solid alpha(@primary, 0.3);
-  margin: 0px 8px 3px 8px;
-  background-color: @surface_container;
-  box-shadow: 0px 1px 3px @shadow;
-}
-
-/* --- Right Modules Container --- */
-.modules-right {
-  border-radius: 26px;
-  border: 1px solid alpha(@outline, 0.3);
-  margin: 0px 8px 3px 8px;
-  padding: 0px 10px 0px 10px;
-  background-color: @surface_container;
-  box-shadow: 0px 1px 3px @shadow;
-}
-
-/* ---  kspaces --- */
+/* --- 2. Workspaces (M3 Segmented Controller / Chips) --- */
 #workspaces {
-  border-radius: 24px;
-  background-color: transparent;
-  margin: 0px;
-  padding: 2px;
+  padding: 3px 6px;
 }
 
 #workspaces button {
-  padding: 0px 4px;
-  margin: 2px 3px;
-  border-radius: 24px;
-  background-color: alpha(@surface_bright, 0.5);
-  color: @window_fg_color;
-  transition: all 0.2s ease-in-out;
-  opacity: 0.85;
-  min-width: 28px;
+  padding: 2px 8px;
+  margin: 0px 2px;
+  border-radius: 12px;
+  color: @on_surface_variant;
+  font-weight: 600;
+  min-width: 24px;
 }
 
-/* ALL active workspaces — with or without windows — same solid color */
-#workspaces button.active,
-#workspaces button.empty.active {
-  min-width: 44px;
+/* Active Workspace: High emphasis primary accent */
+#workspaces button.active {
   background-color: @primary;
   color: @on_primary;
-  opacity: 1.0;
-  box-shadow: 0px 1px 4px alpha(@tertiary, 0.5);
-  transition: all 0.2s ease-in-out;
+  min-width: 38px;
+  font-weight: 700;
 }
 
-#workspaces button.active label,
-#workspaces button.empty.active label {
+#workspaces button.active label {
   color: @on_primary;
-  font-weight: bold;
 }
 
-/* Occupied but not active */
+#workspaces button.active:hover {
+  background-color: mix(@primary, @on_primary, 0.12);
+}
+
+/* Occupied but inactive workspace */
 #workspaces button:not(.empty):not(.active) {
-  background-color: alpha(@secondary, 0.23);
-  color: @window_fg_color;
-  opacity: 0.9;
+  background-color: @surface_container_highest;
+  color: @on_surface;
 }
 
-/* Empty and not active */
+/* Empty workspace */
 #workspaces button.empty {
-  background-color: alpha(@surface_bright, 0.15);
-  color: alpha(@window_fg_color, 0.4);
-  opacity: 0.6;
+  color: alpha(@on_surface, 0.38);
 }
 
-/* Hover */
-#workspaces button:hover {
-  background-color: alpha(@tertiary, 0.25);
-  color: @window_fg_color;
-  opacity: 0.95;
+/* Hover state for inactive workspaces */
+#workspaces button:not(.active):hover {
+  background-color: mix(@surface_container_highest, @on_surface, 0.08);
+  color: @on_surface;
 }
 
-#workspaces button.active:hover,
-#workspaces button.empty.active:hover {
-  background-color: alpha(@primary, 0.85);
-  color: @on_tertiary;
-  box-shadow: 0px 2px 6px alpha(@primary, 0.6);
+/* --- 3. Media Pill (Dynamic Progress Fill using M3 Container Colors) --- */
+#custom-music-pill {
+  min-width: 140px;
+  font-weight: 600;
+  font-size: 12px;
+  color: @on_surface;
+  border-radius: 16px;
 }
 
-/* --- General Modules --- */
-#tray,
-#window,
-#group-tray-expander,
-#mpris,
-#cpu,
-#clock,
-#battery,
-#network,
-#memory,
-#backlight,
-#bluetooth,
-#pulseaudio {
-  min-width: 14px;
-  margin: 1px 3px 1px 3px;
-  padding: 0 3px;
+/* Progress-based gradient utilizing Secondary Container as active track */
+#custom-music-pill.pct-0 {
+  background: linear-gradient(to right, @secondary_container 0%, @surface_container_high 0%); }
+#custom-music-pill.pct-10 {
+  background: linear-gradient(to right, @secondary_container 10%, @surface_container_high 10%); }
+#custom-music-pill.pct-20 {
+  background: linear-gradient(to right, @secondary_container 20%, @surface_container_high 20%); }
+#custom-music-pill.pct-30 {
+  background: linear-gradient(to right, @secondary_container 30%, @surface_container_high 30%); }
+#custom-music-pill.pct-40 {
+  background: linear-gradient(to right, @secondary_container 40%, @surface_container_high 40%); }
+#custom-music-pill.pct-50 {
+  background: linear-gradient(to right, @secondary_container 50%, @surface_container_high 50%); }
+#custom-music-pill.pct-60 {
+  background: linear-gradient(to right, @secondary_container 60%, @surface_container_high 60%); }
+#custom-music-pill.pct-70 {
+  background: linear-gradient(to right, @secondary_container 70%, @surface_container_high 70%); }
+#custom-music-pill.pct-80 {
+  background: linear-gradient(to right, @secondary_container 80%, @surface_container_high 80%); }
+#custom-music-pill.pct-90 {
+  background: linear-gradient(to right, @secondary_container 90%, @surface_container_high 90%); }
+#custom-music-pill.pct-100 {
+  background-color: @secondary_container;
 }
 
-/* --- Module Specific Colors --- */
+/* Hover overlaying on top of the progress gradient */
+#custom-music-pill:hover.pct-0 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 0%, @surface_container_high 0%); }
+#custom-music-pill:hover.pct-10 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 10%, @surface_container_high 10%); }
+#custom-music-pill:hover.pct-20 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 20%, @surface_container_high 20%); }
+#custom-music-pill:hover.pct-30 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 30%, @surface_container_high 30%); }
+#custom-music-pill:hover.pct-40 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 40%, @surface_container_high 40%); }
+#custom-music-pill:hover.pct-50 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 50%, @surface_container_high 50%); }
+#custom-music-pill:hover.pct-60 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 60%, @surface_container_high 60%); }
+#custom-music-pill:hover.pct-70 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 70%, @surface_container_high 70%); }
+#custom-music-pill:hover.pct-80 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 80%, @surface_container_high 80%); }
+#custom-music-pill:hover.pct-90 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), linear-gradient(to right, @secondary_container 90%, @surface_container_high 90%); }
+#custom-music-pill:hover.pct-100 {
+  background: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08)), @secondary_container; }
 
-/* Clock - Primary Accent */
-#clock {
-  padding: 0 5px 0 5px;
-  min-width: 0;
-  color: @primary;
+#custom-music-pill.paused {
+  color: @on_surface_variant;
+  background: @surface_container_high;
+  border: 1px dashed alpha(@outline, 0.2);
 }
 
-/* Window Title - Tertiary Accent */
+/* --- 4. Window Title --- */
 #window {
+  color: @on_surface;
+  font-weight: 500;
+}
+
+/* Hide when empty to prevent unnecessary container rendering */
+window#waybar.empty #window {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+/* --- 5. Clock (Tertiary Highlight visual anchor) --- */
+#clock {
+  background-color: @tertiary_container;
+  color: @on_tertiary_container;
+  font-weight: 700;
+}
+
+#clock:hover {
+  background-color: mix(@tertiary_container, @on_tertiary_container, 0.08);
+}
+
+/* --- 6. Utilities Drawer (Elevated Surface Drawer) --- */
+#group-tray-expander {
+  padding: 2px 6px;
+}
+
+#group-tray-expander #custom-expand-icon {
+  color: @on_surface;
+  font-size: 14px;
+  padding: 2px 8px;
+  margin: 0 4px;
+  border-radius: 12px;
+}
+
+#group-tray-expander #custom-expand-icon:hover {
+  background-color: alpha(@on_surface, 0.08);
+}
+
+/* Drawer children base chip styling (Exiting/Closing: Emphasized acceleration) */
+#custom-color-picker,
+#custom-caffeine,
+#custom-ocr,
+#custom-qr-tool,
+#cpu,
+#memory {
+  background-color: transparent;
+  border: none;
+  padding: 2px 8px;
+  margin: 0 4px;
+  transition: opacity 0.3s cubic-bezier(0.3, 0, 0.8, 0.15),
+              padding 0.3s cubic-bezier(0.3, 0, 0.8, 0.15),
+              margin 0.3s cubic-bezier(0.3, 0, 0.8, 0.15);
+}
+
+/* Drawer children transition when open (Entering/Opening: Emphasized deceleration) */
+#group-tray-expander:hover #custom-color-picker,
+#group-tray-expander:hover #custom-caffeine,
+#group-tray-expander:hover #custom-ocr,
+#group-tray-expander:hover #custom-qr-tool {
+  transition: opacity 0.35s cubic-bezier(0.05, 0.7, 0.1, 1),
+              padding 0.35s cubic-bezier(0.05, 0.7, 0.1, 1),
+              margin 0.35s cubic-bezier(0.05, 0.7, 0.1, 1);
+}
+
+/* Drawer children individual colors */
+#custom-color-picker {
   color: @tertiary;
 }
 
-/* System Tray */
-#group-tray-expander {
-  border-radius: 24px;
-  background-color: transparent;
-  margin-right: 0px;
-  padding: 0 9px 0 9px;
+#custom-caffeine {
   color: @on_surface_variant;
 }
 
-#tray {
-  background-color: transparent;
-  border-radius: 24px;
-  margin: 0 2px;
+#custom-caffeine.active {
+  color: @primary;
 }
 
-#tray > .passive {
-  -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-  -gtk-icon-effect: highlight;
-}
-
-.tray-group-item {
-  min-width: 0;
-  margin: 0;
-  padding: 0 2px;
-}
-
-/* Bluetooth - Secondary */
-#bluetooth {
-  padding-right: 0px;
+#custom-ocr {
   color: @secondary;
 }
 
-#bluetooth.connected {
-  color: @on_secondary_container;
-}
-
-/* Network - Tertiary */
-#network {
-  color: @tertiary;
-}
-
-/* Audio - Primary */
-#pulseaudio {
+#custom-qr-tool {
   color: @primary;
 }
 
-#pulseaudio.muted {
-  color: @error;
-}
-
-/* CPU & Memory - Surface Variant */
-#cpu {
-  
-  color: @on_surface_variant;
-}
-
+#cpu,
 #memory {
   color: @on_surface_variant;
 }
 
-/* Battery - Dynamic States */
-#battery {
+/* Drawer item hover effects */
+.tray-group-item:hover,
+#custom-color-picker:hover,
+#custom-caffeine:hover,
+#custom-ocr:hover,
+#custom-qr-tool:hover,
+#cpu:hover,
+#memory:hover {
+  background-color: alpha(@on_surface, 0.08);
+  border-radius: 8px;
+}
+
+/* --- 7. Quick Settings Pill (System Connectivity & Volume) --- */
+#quicksettings {
+  padding: 4px 8px;
+}
+
+#quicksettings #network,
+#quicksettings #bluetooth,
+#quicksettings #pulseaudio {
   color: @on_surface;
+  padding: 2px 6px;
+  margin: 0 2px;
+  border-radius: 12px;
 }
 
-#battery.charging {
-  color: @primary;
-}
-
-#battery.plugged {
-  color: @secondary;
-}
-
-#battery.warning {
-  color: @error_container;
-  background-color: transparent;
-}
-
-#battery.critical:not(.charging) {
-  background-color: transparent;
+/* Active and warning states */
+#quicksettings #network.disconnected {
   color: @error;
-  animation-name: blink2;
-  animation-duration: 0.5s;
-  animation-timing-function: steps(12);
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 
-/* MPRIS - Non Progress bar; Abandoned, If you dont want progress bar, switch to this */
-#mpris {
-  border-radius: 26px;
-  border: 2px solid alpha(@secondary, 0.3);
-  margin: 0px 8px 3px 8px;
-  background-color: @surface_container;
-  box-shadow: 0px 1px 3px @shadow;
-  transition-property: background-color;
-  transition-duration: .5s;
-  animation: repeat;
-  animation-name: blink;
-  animation-duration: 3s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  color: @on_surface;
+#quicksettings #network.disabled {
+  color: alpha(@on_surface, 0.38);
 }
 
-#mpris.playing {
-  color: @secondary;
-  border-color: alpha(@secondary, 0.6);
-}
-
-/* Notification */
-#custom-notification {
+#quicksettings #bluetooth.connected {
   color: @primary;
+  font-weight: 700;
 }
 
-#custom-notification.dnd {
+#quicksettings #bluetooth.disabled {
+  color: alpha(@on_surface, 0.38);
+}
+
+#quicksettings #pulseaudio.muted {
+  color: @error;
+}
+
+#quicksettings #network:hover,
+#quicksettings #bluetooth:hover,
+#quicksettings #pulseaudio:hover {
+  background-color: alpha(@on_surface, 0.08);
+}
+
+/* --- 8. System Status Pill (Battery & Notifications) --- */
+#system-status {
+  padding: 4px 8px;
+}
+
+#system-status #battery,
+#system-status #custom-notification {
+  color: @on_surface;
+  padding: 2px 6px;
+  margin: 0 2px;
+  border-radius: 12px;
+}
+
+/* Battery States */
+#system-status #battery.charging {
+  color: @primary;
+  font-weight: 700;
+}
+
+#system-status #battery.plugged {
+  color: @secondary;
+}
+
+#system-status #battery.warning {
+  color: @error_container;
+}
+
+#system-status #battery.critical:not(.charging) {
+  color: @error;
+  font-weight: 700;
+  animation: blink-critical 0.5s infinite alternate;
+}
+
+/* Notification States */
+#system-status #custom-notification.notification {
+  color: @tertiary;
+  font-weight: 700;
+}
+
+#system-status #custom-notification.none {
   color: @on_surface_variant;
 }
 
-/* Hidden */
-.hidden {
-  opacity: 0;
+#system-status #custom-notification.dnd {
+  color: alpha(@on_surface, 0.38);
 }
 
-/* --- Keyframes --- */
-@keyframes blink {
+#system-status #battery:hover,
+#system-status #custom-notification:hover {
+  background-color: alpha(@on_surface, 0.08);
+}
+
+/* Critical blinking state */
+@keyframes blink-critical {
   to {
-    color: @on_surface_variant;
+    background-color: alpha(@error, 0.15);
+    color: @error;
   }
 }
 
-@keyframes blink-inhibitor {
-  to {
-    color: @surface_container;
-  }
+/* --- Tooltips --- */
+tooltip {
+  background-color: @surface_container_highest;
+  border: 1px solid alpha(@outline, 0.2);
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0px 4px 8px alpha(@shadow, 0.15);
+  /* Tooltip window transition: fade-in (M3 standard easing) */
+  transition: opacity 0.15s cubic-bezier(0.2, 0, 0, 1);
 }
 
-@keyframes blink2 {
-  to {
-    background-color: transparent;
-    color: @error_container;
-  }
+tooltip label {
+  color: @on_surface;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 12px;
+  /* Tooltip label transition: fade-in and slight slide-up */
+  margin-top: 2px;
+  transition: margin-top 0.15s cubic-bezier(0.2, 0, 0, 1),
+              opacity 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* --- Standard System Tray fallback styling --- */
+#tray {
+  padding: 0 4px;
+}
+
+menu,
+popover {
+  background-color: @surface_container_highest;
+  border: 1px solid alpha(@outline, 0.2);
+  border-radius: 12px;
+  color: @on_surface;
+  padding: 8px;
+}
+
+menu menuitem,
+popover menuitem {
+  color: @on_surface;
+  padding: 4px 12px;
+  border-radius: 8px;
+  margin: 2px 0;
+}
+
+menu menuitem:hover,
+popover menuitem:hover {
+  background-image: linear-gradient(alpha(@on_surface, 0.08), alpha(@on_surface, 0.08));
+}
+
+/* --- Spacer & Expand Modules (Bug 2) --- */
+#custom-spacer,
+#spacer,
+.spacer {
+  background-color: @surface_container_high;
+  border-radius: 16px;
+  border: 1px solid alpha(@outline, 0.08);
+  margin: 2px 6px;
+  padding: 3px 12px;
 }

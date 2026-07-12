@@ -2,25 +2,25 @@
 name = "matugen"
 
 [themes.component_style]
-block_title = { fg = "#cccadb", modifiers = ["Bold"] }
-border = { fg = "#aaa8aa" }
+block_title = { fg = "#e7e5ec", modifiers = ["Bold"] }
+border = { fg = "#d1ced5" }
 
-playback_status = { fg = "#cccadb", modifiers = ["Bold"] }
-playback_track = { fg = "#f8f3f6", modifiers = ["Bold"] }
-playback_artists = { fg = "#cdcad5" }
-playback_album = { fg = "#cac8e2" }
-playback_genres = { fg = "#cecacc", modifiers = ["Italic"] }
-playback_metadata = { fg = "#cecacc" }
-playback_progress_bar = { fg = "#cccadb", bg = "#4e4d4e" }
-playback_progress_bar_unfilled = { bg = "#4e4d4e" }
+playback_status = { fg = "#e7e5ec", modifiers = ["Bold"] }
+playback_track = { fg = "#ffffff", modifiers = ["Bold"] }
+playback_artists = { fg = "#e8e5e8" }
+playback_album = { fg = "#f0e4d8" }
+playback_genres = { fg = "#fcfaff", modifiers = ["Italic"] }
+playback_metadata = { fg = "#fcfaff" }
+playback_progress_bar = { fg = "#e7e5ec", bg = "#555353" }
+playback_progress_bar_unfilled = { bg = "#555353" }
 
-current_playing = { fg = "#cccadb", modifiers = ["Bold"] }
-page_desc = { fg = "#cdcad5", modifiers = ["Bold"] }
-playlist_desc = { fg = "#cecacc", modifiers = ["Dim"] }
-table_header = { fg = "#cac8e2" }
-selection = { fg = "#ffffff", bg = "#82808b" }
+current_playing = { fg = "#e7e5ec", modifiers = ["Bold"] }
+page_desc = { fg = "#e8e5e8", modifiers = ["Bold"] }
+playlist_desc = { fg = "#fcfaff", modifiers = ["Dim"] }
+table_header = { fg = "#f0e4d8" }
+selection = { fg = "#000000", bg = "#aeacb0" }
 
-secondary_row = { fg = "#aaa8aa" }
-like = { fg = "#cac8e2" }
-lyrics_played = { fg = "#aaa8aa", modifiers = ["Dim"] }
-lyrics_playing = { fg = "#cccadb", modifiers = ["Bold"] }
+secondary_row = { fg = "#d1ced5" }
+like = { fg = "#f0e4d8" }
+lyrics_played = { fg = "#d1ced5", modifiers = ["Dim"] }
+lyrics_playing = { fg = "#e7e5ec", modifiers = ["Bold"] }

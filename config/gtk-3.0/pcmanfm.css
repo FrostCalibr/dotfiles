@@ -1,0 +1,167 @@
+/* ===================================================================
+   🎨 PCMANFM HIGH-END CUSTOMIZATION (GTK3 overrides)
+   =================================================================== */
+
+/* 1. Global Window Customization for PCManFM */
+window.pcmanfm-window,
+window.Pcmanfm {
+    background-color: transparent;
+}
+
+/* 2. Style the Main Paned Area & Separator (Zero Borders) */
+window.pcmanfm-window paned,
+window.pcmanfm-window separator {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    width: 1px;
+    outline: none;
+}
+
+/* 3. Redesigned Sidebar (Minimalist, spacious, list-oriented) */
+FmSidebar,
+#fm-sidebar,
+FmSidebar treeview,
+.pcmanfm-window treeview.sidebar {
+    background-color: transparent !important;
+    border: none !important;
+    color: @sidebar_fg_color;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Customize treeview lines & expanders */
+FmSidebar treeview {
+    -GtkTreeView-horizontal-rules: false;
+    -GtkTreeView-vertical-rules: false;
+    -GtkTreeView-expander-size: 8;
+}
+
+/* Sidebar Row Spacing & Rounded Border Pills */
+FmSidebar treeview row {
+    padding: 6px 12px;
+    min-height: 38px;
+    border-radius: 8px;
+    margin: 3px 10px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+/* Sidebar Hover Style */
+FmSidebar treeview row:hover {
+    background-color: rgba(255, 255, 255, 0.035) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Sidebar Active/Selected Style */
+FmSidebar treeview row:selected,
+FmSidebar treeview row:selected:focus {
+    background-color: alpha(@accent_color, 0.12) !important;
+    border: 1px solid alpha(@accent_color, 0.15) !important;
+    color: @accent_color !important;
+    font-weight: 600;
+}
+
+/* 4. Style the Files Grid & Tab Page (Clean and Minimal) */
+FmTabPage,
+FmFolderView,
+FmFolderView iconview,
+FmFolderView treeview {
+    background-color: rgba(0, 0, 0, 0.15) !important;
+    color: @view_fg_color;
+    border: none !important;
+}
+
+/* Clean grid items hover/selected states */
+FmFolderView iconview:hover,
+FmFolderView treeview row:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-radius: 6px;
+}
+
+FmFolderView iconview:selected,
+FmFolderView treeview row:selected,
+FmFolderView treeview row:selected:focus {
+    background-color: alpha(@accent_color, 0.18) !important;
+    color: @accent_color !important;
+    border-radius: 6px;
+}
+
+/* 5. Custom Header/Toolbar (Flat modern layout) */
+window.pcmanfm-window headerbar,
+window.pcmanfm-window toolbar {
+    background-color: rgba(0, 0, 0, 0.25) !important;
+    background-image: none;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+    padding: 6px 12px;
+}
+
+/* Style path entry bar to look like modern Search Input */
+window.pcmanfm-window entry {
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: @window_fg_color;
+    padding: 5px 10px;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.2s ease;
+}
+
+window.pcmanfm-window entry:focus {
+    border-color: @accent_color !important;
+    box-shadow: 0 0 10px alpha(@accent_color, 0.15);
+}
+
+/* 6. Tabs Customization (Remove heavy tab decks) */
+window.pcmanfm-window notebook {
+    background-color: transparent;
+    border: none;
+}
+
+window.pcmanfm-window notebook header {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+window.pcmanfm-window notebook tab {
+    padding: 6px 16px;
+    background-color: transparent;
+    border: none;
+    color: @text_muted;
+    transition: all 0.2s ease;
+}
+
+window.pcmanfm-window notebook tab:hover {
+    color: @window_fg_color;
+}
+
+window.pcmanfm-window notebook tab:checked,
+window.pcmanfm-window notebook tab:active {
+    background-color: rgba(255, 255, 255, 0.02);
+    border-bottom: 2px solid @accent_color;
+    color: @accent_color;
+    font-weight: 500;
+}
+
+/* 7. Scrollbar Styling (Modern ultra-thin slider) */
+scrollbar {
+    background-color: transparent;
+    border: none;
+}
+
+scrollbar slider {
+    background-color: alpha(@accent_color, 0.2) !important;
+    border-radius: 20px;
+    min-width: 6px;
+    min-height: 6px;
+    border: none;
+}
+
+scrollbar slider:hover {
+    background-color: alpha(@accent_color, 0.45) !important;
+}
+
+scrollbar slider:active {
+    background-color: @accent_color !important;
+}

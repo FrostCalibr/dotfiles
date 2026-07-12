@@ -1,0 +1,149 @@
+@import 'colors.css';
+
+$radius: 8px;
+
+/* --- Base Aliases --- */
+@define-color background @window_bg_color;
+@define-color foreground @on_surface;
+
+/* --- Global Settings --- */
+* {
+  all: unset;
+  font-family: 'JetBrainsMono Nerd Font Propo';
+  font-size: 13px;
+  font-weight: bold;
+  color: @foreground;
+}
+
+/* --- Waybar Window --- */
+window#waybar {
+  background-color: transparent;
+}
+
+/* --- Tooltip --- */
+tooltip {
+  background: rgba(20, 20, 30, 0.95);
+  border: 1px solid @primary;
+  border-radius: $radius;
+  box-shadow: 0px 0px 8px alpha(@primary, 0.5);
+  padding: 6px;
+}
+
+/* --- Containers --- */
+#left1, #left2, #center-window, #center-clock {
+  background-color: rgba(30, 30, 40, 0.85);
+  border: 1px solid alpha(@primary, 0.3);
+  border-radius: $radius;
+  margin: 3px 6px;
+  padding: 0 6px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+}
+
+#left2 {
+  border-color: alpha(@secondary, 0.3);
+}
+
+#center-window {
+  border-color: alpha(@tertiary, 0.3);
+}
+
+#center-clock {
+  border-color: alpha(@primary, 0.3);
+}
+
+.modules-right {
+  background-color: transparent;
+  border: none;
+  margin: 0px 6px;
+  padding: 0;
+}
+
+/* --- Workspaces --- */
+#workspaces button {
+  padding: 0px 6px;
+  margin: 2px 3px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+  background: linear-gradient(135deg, @primary 0%, @tertiary 100%);
+  color: #000000;
+  box-shadow: 0px 0px 8px alpha(@primary, 0.4);
+}
+
+#workspaces button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* --- Right Modules --- */
+#group-tray-expander,
+#cpu,
+#memory,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-notification {
+  background-color: rgba(30, 30, 40, 0.85);
+  border: 1px solid alpha(@outline, 0.2);
+  border-radius: $radius;
+  margin: 2px 4px;
+  padding: 0px 8px;
+  transition: all 0.3s ease;
+}
+
+#cpu:hover, #memory:hover, #battery:hover, #network:hover, #bluetooth:hover, #pulseaudio:hover {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
+#pulseaudio {
+  color: @primary;
+  border-color: alpha(@primary, 0.4);
+}
+
+#network {
+  color: @tertiary;
+  border-color: alpha(@tertiary, 0.4);
+}
+
+#bluetooth {
+  color: @secondary;
+  border-color: alpha(@secondary, 0.4);
+}
+
+#battery {
+  color: @primary;
+  border-color: alpha(@primary, 0.4);
+}
+
+#battery.charging {
+  box-shadow: 0 0 6px alpha(@primary, 0.3);
+}
+
+#battery.warning {
+  color: @error_container;
+  border-color: alpha(@error_container, 0.4);
+}
+
+#battery.critical {
+  color: @error;
+  border-color: @error;
+  box-shadow: 0 0 8px alpha(@error, 0.4);
+}
+
+#custom-notification {
+  color: @primary;
+  border-color: alpha(@primary, 0.4);
+}
+
+#custom-music-pill {
+  background: linear-gradient(90deg, rgba(30, 30, 40, 0.9) 0%, rgba(50, 40, 60, 0.9) 100%);
+  border: 1px solid alpha(@secondary, 0.3);
+  border-radius: $radius;
+  margin: 3px 6px;
+  padding: 0 10px;
+}

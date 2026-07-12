@@ -1,0 +1,27 @@
+[KFileDialog Settings]
+Allow Expansion=false
+Automatically select filename extension=true
+Breadcrumb Navigation=true
+Decoration position=2
+Show Full Path=false
+Show Inline Previews=true
+Show Preview=false
+Show Speedbar=true
+Show hidden files=false
+Sort by=Name
+Sort directories first=true
+Sort hidden files last=false
+Sort reversed=false
+Speedbar Width=144
+View Style=DetailTree
+
+[General]
+ColorScheme=matugen
+
+[Colors:Selection]
+# Fix A: bg=on_primary (dark), fg=primary (light). Readable in both
+# focused (HighlightedText path) and unfocused (QPalette::Text/white path).
+BackgroundNormal={{colors.on_primary.default.red}},{{colors.on_primary.default.green}},{{colors.on_primary.default.blue}}
+ForegroundNormal={{colors.primary.default.red}},{{colors.primary.default.green}},{{colors.primary.default.blue}}
+ForegroundInactive={{colors.primary.default.red}},{{colors.primary.default.green}},{{colors.primary.default.blue}}
+ForegroundActive={{colors.primary.default.red}},{{colors.primary.default.green}},{{colors.primary.default.blue}}

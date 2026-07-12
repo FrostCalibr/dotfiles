@@ -65,24 +65,24 @@
                 {
                     "label": "",
                     "type": "toggle",
-                    "command": "bash -c '$HOME/.local/bin/caffeine'",
-                    "update-command": "bash -c '$HOME/.local/bin/caffeine --is-running'"
+                    "command": "bash -c '~/.config/hypr/scripts/hypr-helper.sh caffeine'",
+                    "update-command": "bash -c '[ -f /tmp/.caffeine_active ] && echo true || echo false'"
                 },
                 {
                     "label": "",
                     "type": "toggle",
-                    "command": "bash -c '$HOME/.local/bin/mictoggle --silent'",
-                    "update-command": "bash -c '$HOME/.local/bin/mictoggle --is-muted'"
+                    "command": "bash -c 'pamixer --default-source -t'",
+                    "update-command": "bash -c 'pamixer --default-source --get-mute'"
                 },
                 {
                     "label": "",
                     "command": "hyprctl dispatch exec alacritty -- -e htop ; swaync-client -cp"
                 },
                 {
-                    "label": "󰃟",
+                    "label": "󰃠",
                     "type": "toggle",
-                    "command": "bash -c '$HOME/.local/bin/themesw'",
-                    "update-command": "bash -c '[ $($HOME/.local/bin/themesw --current) = light ] && echo true || echo false'"
+                    "command": "bash -c 'if [ $(brightnessctl g) -eq $(brightnessctl m) ]; then brightnessctl set 30%; else brightnessctl set 100%; fi'",
+                    "update-command": "bash -c 'if [ $(brightnessctl g) -eq $(brightnessctl m) ]; then echo true; else echo false; fi'"
                 },
                 {
                     "label": "󰏘",
@@ -90,7 +90,7 @@
                 },
                 {
                     "label": "",
-                    "command": "~/Scripts/rofi/powermenu_t2"
+                    "command": "/home/m_frost/.config/rofi/powermenu/type-2/powermenu.sh"
                 }
             ]
         }

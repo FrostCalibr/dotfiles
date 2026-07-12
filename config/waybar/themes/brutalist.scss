@@ -1,0 +1,147 @@
+@import 'colors.css';
+
+$radius: 0px;
+
+/* --- Base Aliases --- */
+@define-color background @window_bg_color;
+@define-color foreground #000000;
+@define-color border_color #000000;
+
+/* --- Global Settings --- */
+* {
+  all: unset;
+  font-family: 'JetBrainsMono Nerd Font Propo';
+  font-size: 13px;
+  font-weight: 900;
+  color: #000000;
+}
+
+/* --- Waybar Window --- */
+window#waybar {
+  background-color: transparent;
+}
+
+/* --- Tooltip --- */
+tooltip {
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+  padding: 6px;
+}
+
+tooltip label {
+  color: #000000;
+}
+
+/* --- Containers --- */
+#left1, #left2, #center-window, #center-clock {
+  background-color: @primary;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px #000000;
+  border-radius: $radius;
+  margin: 2px 6px;
+  padding: 0 4px;
+}
+
+#left2 {
+  background-color: @secondary;
+}
+
+#center-window {
+  background-color: @tertiary;
+}
+
+#center-clock {
+  background-color: @primary;
+}
+
+.modules-right {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0px 6px;
+}
+
+/* --- Workspaces --- */
+#workspaces button {
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+  margin: 2px 3px;
+  padding: 0px 6px;
+  min-width: 24px;
+  box-shadow: 1px 1px 0px #000000;
+  transition: all 0.1s ease;
+}
+
+#workspaces button.active {
+  background-color: @primary;
+  box-shadow: 2px 2px 0px #000000;
+  margin: 1px 4px 3px 2px; /* Shifts up-left by 1px in GTK CSS */
+}
+
+/* --- Right side modules styled as Brutalist blocks --- */
+#group-tray-expander,
+#cpu,
+#memory,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-notification {
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+  margin: 2px 4px;
+  padding: 0px 8px;
+  font-size: 13px;
+}
+
+#cpu, #memory {
+  background-color: @secondary;
+}
+
+#pulseaudio {
+  background-color: @primary;
+}
+
+#network {
+  background-color: @tertiary;
+}
+
+#bluetooth {
+  background-color: @secondary;
+}
+
+#battery {
+  background-color: @primary;
+}
+
+#battery.warning {
+  background-color: @error_container;
+}
+
+#battery.critical {
+  background-color: @error;
+}
+
+#custom-notification {
+  background-color: @tertiary;
+}
+
+#group-tray-expander {
+  background-color: #ffffff;
+}
+
+#custom-music-pill {
+  background-color: @secondary;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px #000000;
+  margin: 2px 6px;
+  padding: 0px 10px;
+}
+
+#custom-arch {
+  font-size: 18px;
+  padding: 0 4px;
+}

@@ -1,0 +1,8 @@
+:root {
+  --color-primary: {{colors.primary.default.hex}};
+  --color-accent: {{colors.tertiary.default.hex}};
+  --color-bg: {{colors.background.default.hex}};
+  --color-card-bg: {{colors.surface_container.default.hex}};
+  --color-sidebar-bg: {{colors.surface.default.hex}};
+  --color-appbar-bg: {{colors.surface_variant.default.hex}};
+}

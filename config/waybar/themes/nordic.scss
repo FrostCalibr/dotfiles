@@ -1,0 +1,124 @@
+@import 'colors.css';
+
+$radius: 0px;
+
+/* --- Base Aliases --- */
+@define-color background @window_bg_color;
+@define-color foreground @on_surface;
+@define-color accent @primary;
+
+/* --- Global Settings --- */
+* {
+  all: unset;
+  font-family: 'JetBrainsMono Nerd Font Propo';
+  font-size: 13px;
+  font-weight: bold;
+  color: @foreground;
+}
+
+/* --- Waybar Window --- */
+window#waybar {
+  background-color: transparent;
+}
+
+/* --- Tooltip --- */
+tooltip {
+  background-color: rgba(43, 48, 59, 0.95);
+  border: 1px solid @secondary;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+/* --- Left, Center, Right Containers --- */
+#left1, #left2, #center-window, #center-clock, .modules-right {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0px 4px;
+  padding: 0px;
+}
+
+/* --- Workspaces --- */
+#workspaces button {
+  padding: 0px 6px;
+  color: alpha(@foreground, 0.4);
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+  color: @primary;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+#workspaces button:not(.empty):not(.active) {
+  color: @secondary;
+}
+
+/* --- General Modules --- */
+#tray,
+#window,
+#group-tray-expander,
+#mpris,
+#cpu,
+#clock,
+#battery,
+#network,
+#memory,
+#backlight,
+#bluetooth,
+#pulseaudio,
+#custom-notification {
+  color: @foreground;
+  margin: 0 8px;
+  padding: 0;
+  font-size: 13px;
+}
+
+/* Accent Colors */
+#clock {
+  color: @primary;
+}
+
+#window {
+  color: @foreground;
+}
+
+#pulseaudio {
+  color: @tertiary;
+}
+
+#network {
+  color: @secondary;
+}
+
+#bluetooth {
+  color: @secondary;
+}
+
+#battery {
+  color: @primary;
+}
+
+#battery.warning {
+  color: @error_container;
+}
+
+#battery.critical {
+  color: @error;
+}
+
+#cpu, #memory {
+  color: @on_surface_variant;
+}
+
+#custom-music-pill {
+  color: @secondary;
+  font-size: 13px;
+}
+
+#custom-arch {
+  font-size: 16px;
+  color: @secondary;
+}

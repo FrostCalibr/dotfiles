@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAME SOURCE — AI Recommender</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Sidebar: Taste Profile & Specifications -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-gamepad logo-icon"></i>
+                <h2>GAME<span>SOURCE</span></h2>
+            </div>
+            
+            <div class="system-status">
+                <div class="status-indicator online"></div>
+                <span>AI Recommendation Core Active</span>
+            </div>
+
+            <!-- Taste Profile Widgets -->
+            <div class="widget-section">
+                <h3 class="section-title"><i class="fa-solid fa-star icon-heading"></i>Taste Profile</h3>
+                
+                <div class="card glass preference-notes-card">
+                    <h4>AI preference summary</h4>
+                    <p id="profile-notes">Loading preferences...</p>
+                </div>
+                
+                <div class="profile-stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-num" id="liked-count">0</span>
+                        <span class="stat-label">Liked Games</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-num" id="disliked-count">0</span>
+                        <span class="stat-label">Disliked</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Specifications Widget -->
+            <div class="widget-section">
+                <div class="section-header-btn">
+                    <h3 class="section-title"><i class="fa-solid fa-cpu icon-heading"></i>System Specs</h3>
+                    <button class="icon-btn" onclick="openSpecsModal()"><i class="fa-solid fa-pen-to-square"></i></button>
+                </div>
+                
+                <div class="card glass specs-card">
+                    <div class="spec-item">
+                        <i class="fa-solid fa-microchip"></i>
+                        <div>
+                            <span class="spec-label">CPU</span>
+                            <span class="spec-val" id="spec-cpu">Detecting...</span>
+                        </div>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fa-solid fa-server"></i>
+                        <div>
+                            <span class="spec-label">GPU</span>
+                            <span class="spec-val" id="spec-gpu">Detecting...</span>
+                        </div>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fa-solid fa-memory"></i>
+                        <div>
+                            <span class="spec-label">RAM</span>
+                            <span class="spec-val" id="spec-ram">Detecting...</span>
+                        </div>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fa-solid fa-hard-drive"></i>
+                        <div>
+                            <span class="spec-label">Storage</span>
+                            <span class="spec-val" id="spec-storage">Detecting...</span>
+                        </div>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fa-solid fa-desktop"></i>
+                        <div>
+                            <span class="spec-label">Rig Class</span>
+                            <span class="spec-val highlight" id="spec-desc">Detecting...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Display Panel -->
+        <main class="main-content">
+            <!-- Header bar with settings & imports -->
+            <header class="main-header">
+                <div class="welcome-text">
+                    <h1>Find your next game</h1>
+                    <p>Cross-referenced with Twitch IGDB database and hardware specifications.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn secondary" onclick="openImportModal()">
+                        <i class="fa-solid fa-file-import"></i> Import Favorites
+                    </button>
+                    <button class="btn icon-circle" onclick="openSettingsModal()">
+                        <i class="fa-solid fa-key"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Navigation Tabs -->
+            <div class="tab-navigation glass">
+                <button id="tab-btn-recommendations" class="tab-btn active" onclick="switchTab('recommendations')">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> AI Recommender
+                </button>
+                <button id="tab-btn-discover" class="tab-btn" onclick="switchTab('discover')">
+                    <i class="fa-solid fa-compass"></i> Discover Games
+                </button>
+            </div>
+
+            <!-- TAB 1: AI Recommendations Content -->
+            <div id="recommendations-tab-content" class="tab-content">
+                <div class="tab-content-header">
+                    <div class="suggestion-chips">
+                        <span class="chip-label">Try searching:</span>
+                        <button class="chip" onclick="applySuggestion('something cozy and relaxing where I build a farm')">Cozy Farming</button>
+                        <button class="chip" onclick="applySuggestion('dark and atmospheric gothic metroidvania')">Dark Metroidvania</button>
+                        <button class="chip" onclick="applySuggestion('space travel sci-fi RPG with deep story and spaceship building')">Space RPG</button>
+                        <button class="chip" onclick="applySuggestion('challenging tactical turn-based strategy like xcom')">Tactical Strategy</button>
+                    </div>
+                    <div class="view-mode-bar">
+                        <span class="dim">Layout Mode:</span>
+                        <div class="view-mode-buttons">
+                            <button class="view-mode-btn active" id="btn-mode-recommendations-grid" onclick="setViewMode('recommendations', 'grid')">
+                                <i class="fa-solid fa-table-cells-large"></i> Grid
+                            </button>
+                            <button class="view-mode-btn" id="btn-mode-recommendations-swipe" onclick="setViewMode('recommendations', 'swipe')">
+                                <i class="fa-solid fa-copy"></i> Swipe Deck
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendation Query Input Box -->
+                <section class="search-section">
+                    <div class="search-box glass">
+                        <i class="fa-solid fa-wand-magic-sparkles search-icon"></i>
+                        <input type="text" id="query-input" placeholder="Describe the style of game you are craving... (e.g., 'something atmospheric and dark, where you feel lost')" onkeydown="if(event.key === 'Enter') getRecommendations()">
+                        <button class="btn primary search-btn" onclick="getRecommendations()">
+                            Generate AI Picks <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Loading indicator -->
+                <section id="loading-container" class="loading-container hidden">
+                    <div class="loader-spinner"></div>
+                    <h3 id="loader-title">Consulting the gaming database...</h3>
+                    <p id="loader-subtitle" class="dim">Retrieving real-time details from IGDB</p>
+                </section>
+
+                <!-- Recommendations Results Area -->
+                <section id="recommendations-container" class="recommendations-area hidden">
+                    <div class="results-header">
+                        <h2>Suggested Recommendations</h2>
+                        <span class="results-meta" id="results-count">5 games found</span>
+                    </div>
+                    
+                    <!-- Grid View Container -->
+                    <div id="recommendations-grid" class="recommendations-grid">
+                        <!-- Recommended cards injected dynamically by JS -->
+                    </div>
+                    
+                    <!-- Swipe View Container -->
+                    <div id="recommendations-swipe-container" class="swipe-deck-wrapper hidden">
+                        <div class="swipe-deck-boundary">
+                            <div id="recommendations-swipe-deck" class="swipe-deck">
+                                <!-- Stacked cards injected dynamically by JS -->
+                            </div>
+                        </div>
+                        <div class="swipe-controls">
+                            <button class="swipe-btn dislike-btn" onclick="triggerSwipe('recommendations', 'left')" title="Swipe Left (Dislike)"><i class="fa-solid fa-xmark"></i></button>
+                            <button class="swipe-btn info-btn" onclick="triggerSwipeDetails('recommendations')" title="View Steam Reviews"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                            <button class="swipe-btn skip-btn" onclick="triggerSwipe('recommendations', 'up')" title="Swipe Up (Skip)"><i class="fa-solid fa-arrow-up"></i></button>
+                            <button class="swipe-btn like-btn" onclick="triggerSwipe('recommendations', 'right')" title="Swipe Right (Like)"><i class="fa-solid fa-check"></i></button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Empty State -->
+                <section id="empty-state" class="empty-state">
+                    <div class="empty-art">
+                        <i class="fa-solid fa-compass-drafting"></i>
+                    </div>
+                    <h3>Start your recommendation search</h3>
+                    <p class="dim">Enter a natural language description above to get tailored suggestions.</p>
+                </section>
+            </div>
+
+            <!-- TAB 2: Discover Content -->
+            <div id="discover-tab-content" class="tab-content hidden">
+                <div class="tab-content-header">
+                    <span class="dim">Find games you haven't played matching your taste:</span>
+                    <div class="view-mode-bar">
+                        <span class="dim">Layout Mode:</span>
+                        <div class="view-mode-buttons">
+                            <button class="view-mode-btn active" id="btn-mode-discover-grid" onclick="setViewMode('discover', 'grid')">
+                                <i class="fa-solid fa-table-cells-large"></i> Grid
+                            </button>
+                            <button class="view-mode-btn" id="btn-mode-discover-swipe" onclick="setViewMode('discover', 'swipe')">
+                                <i class="fa-solid fa-copy"></i> Swipe Deck
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters panel -->
+                <section class="discover-filters card glass">
+                    <div class="filters-grid">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-laptop"></i> Platform</label>
+                            <select id="filter-platform">
+                                <option value="">All Platforms</option>
+                                <option value="PC (Microsoft Windows)">PC (Windows)</option>
+                                <option value="PlayStation 5">PlayStation 5</option>
+                                <option value="Xbox Series X|S">Xbox Series X|S</option>
+                                <option value="Nintendo Switch">Nintendo Switch</option>
+                                <option value="Mac">Mac</option>
+                                <option value="Linux">Linux</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-building"></i> Brand / Publisher</label>
+                            <input type="text" id="filter-brand" placeholder="e.g. Capcom, Valve, Nintendo">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-gamepad"></i> Genre</label>
+                            <select id="filter-genre">
+                                <option value="">All Genres</option>
+                                <option value="Role-playing (RPG)">Role-Playing (RPG)</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="Simulator">Simulator</option>
+                                <option value="Strategy">Strategy</option>
+                                <option value="Platform">Platformer</option>
+                                <option value="Puzzle">Puzzle</option>
+                                <option value="Shooter">Shooter</option>
+                                <option value="Indie">Indie</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-folder-open"></i> Theme</label>
+                            <select id="filter-theme">
+                                <option value="">All Themes</option>
+                                <option value="Science fiction">Sci-Fi</option>
+                                <option value="Fantasy">Fantasy</option>
+                                <option value="Horror">Horror</option>
+                                <option value="Survival">Survival</option>
+                                <option value="Open world">Open World</option>
+                                <option value="Action">Action</option>
+                                <option value="Sandbox">Sandbox</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn primary discover-search-btn" onclick="getDiscoverGames()">
+                        <i class="fa-solid fa-compass"></i> Discover New Games
+                    </button>
+                </section>
+
+                <!-- Loading indicator -->
+                <section id="discover-loading-container" class="loading-container hidden">
+                    <div class="loader-spinner"></div>
+                    <h3>Exploring the game database...</h3>
+                    <p class="dim">Retrieving raw metadata and running batch compatibility checks</p>
+                </section>
+
+                <!-- Discover Results Area -->
+                <section id="discover-container" class="recommendations-area hidden">
+                    <div class="results-header">
+                        <h2>Discovered Games</h2>
+                        <span class="results-meta" id="discover-results-count">0 games found</span>
+                    </div>
+                    
+                    <!-- Grid View Container -->
+                    <div id="discover-grid" class="recommendations-grid">
+                        <!-- Discovered cards injected dynamically by JS -->
+                    </div>
+                    
+                    <!-- Swipe View Container -->
+                    <div id="discover-swipe-container" class="swipe-deck-wrapper hidden">
+                        <div class="swipe-deck-boundary">
+                            <div id="discover-swipe-deck" class="swipe-deck">
+                                <!-- Stacked cards injected dynamically by JS -->
+                            </div>
+                        </div>
+                        <div class="swipe-controls">
+                            <button class="swipe-btn dislike-btn" onclick="triggerSwipe('discover', 'left')" title="Swipe Left (Dislike)"><i class="fa-solid fa-xmark"></i></button>
+                            <button class="swipe-btn info-btn" onclick="triggerSwipeDetails('discover')" title="View Steam Reviews"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                            <button class="swipe-btn skip-btn" onclick="triggerSwipe('discover', 'up')" title="Swipe Up (Skip)"><i class="fa-solid fa-arrow-up"></i></button>
+                            <button class="swipe-btn like-btn" onclick="triggerSwipe('discover', 'right')" title="Swipe Right (Like)"><i class="fa-solid fa-check"></i></button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Empty State -->
+                <section id="discover-empty-state" class="empty-state">
+                    <div class="empty-art">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <h3>Start discovering games</h3>
+                    <p class="dim">Apply filters and hit "Discover New Games" to explore matching titles you haven't played yet.</p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- YouTube video player Modal overlay -->
+    <div id="video-modal" class="modal-overlay hidden" onclick="closeVideoModal()">
+        <div class="video-modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close-btn" onclick="closeVideoModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="video-iframe-container">
+                <iframe id="youtube-player" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hardware Specs Config Modal -->
+    <div id="specs-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3>Configure System Specifications</h3>
+                <button class="modal-close-btn" onclick="closeSpecsModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="auto-detect-section">
+                    <button class="btn secondary full-width" onclick="autoDetectHardware()">
+                        <i class="fa-solid fa-bolt"></i> Auto-Detect System Specs
+                    </button>
+                </div>
+                <div class="divider"><span>OR ENTER MANUALLY</span></div>
+                <div class="form-group">
+                    <label>CPU Model</label>
+                    <input type="text" id="input-cpu" placeholder="e.g. Intel Core i5-4460">
+                </div>
+                <div class="form-group">
+                    <label>GPU Model</label>
+                    <input type="text" id="input-gpu" placeholder="e.g. NVIDIA GTX 960">
+                </div>
+                <div class="form-group">
+                    <label>RAM Size</label>
+                    <input type="text" id="input-ram" placeholder="e.g. 16 GB">
+                </div>
+                <div class="form-group">
+                    <label>Storage Size</label>
+                    <input type="text" id="input-storage" placeholder="e.g. 512 GB SSD">
+                </div>
+                <div class="form-group">
+                    <label>General Rig Class</label>
+                    <input type="text" id="input-desc" placeholder="e.g. potato laptop, budget PC, high-end rig">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn text" onclick="closeSpecsModal()">Cancel</button>
+                <button class="btn primary" onclick="saveHardwareSpecs()">Save Specifications</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Batch Taste Import Modal -->
+    <div id="import-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3>Import Favorite Games</h3>
+                <button class="modal-close-btn" onclick="closeImportModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="dim font-small mb-4">Initialize your profile by listing games you love. Typo correction is run automatically.</p>
+                <div class="form-group">
+                    <label>Games List (comma-separated)</label>
+                    <textarea id="input-import-names" rows="4" placeholder="e.g. wticher 3, hoolow knight, portals 2, outer wilds"></textarea>
+                </div>
+                <div id="import-loading" class="import-loading hidden">
+                    <div class="loader-spinner small"></div>
+                    <span class="font-small">Processing names and fetching metadata...</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn text" onclick="closeImportModal()">Cancel</button>
+                <button id="import-save-btn" class="btn primary" onclick="saveBatchLikedGames()">Import & Load</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Credentials / API Settings Modal -->
+    <div id="settings-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3>API Credentials Configuration</h3>
+                <button class="modal-close-btn" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>GROQ_API_KEY</label>
+                    <input type="password" id="input-groq-key" placeholder="Enter Groq Key">
+                </div>
+                <div class="form-group">
+                    <label>TWITCH_CLIENT_ID</label>
+                    <input type="text" id="input-twitch-id" placeholder="Enter Twitch Client ID">
+                </div>
+                <div class="form-group">
+                    <label>TWITCH_CLIENT_SECRET</label>
+                    <input type="password" id="input-twitch-secret" placeholder="Enter Twitch Client Secret">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn text" onclick="closeSettingsModal()">Cancel</button>
+                <button class="btn primary" onclick="saveApiCredentials()">Save Credentials</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Setup Wizard Page Overlay (displayed when keys are missing) -->
+    <div id="setup-wizard-overlay" class="setup-wizard-overlay hidden">
+        <div class="setup-wizard-card glass">
+            <div class="brand">
+                <i class="fa-solid fa-gamepad logo-icon"></i>
+                <h2>GAME<span>SOURCE</span></h2>
+            </div>
+            <h3>System Credentials Setup Wizard</h3>
+            <p class="dim font-small">Welcome! Let's configure your API keys to get started. These will be saved locally to your project's .env file.</p>
+            
+            <div class="form-group">
+                <label>1. Groq API Key <span class="required">*</span></label>
+                <input type="password" id="wizard-groq-key" placeholder="gsk_...">
+                <span class="help-text">Get a free key from <a href="https://console.groq.com/" target="_blank">console.groq.com</a></span>
+            </div>
+            
+            <div class="form-group">
+                <label>2. Twitch Client ID <span class="required">*</span></label>
+                <input type="text" id="wizard-twitch-id" placeholder="Enter client ID">
+                <span class="help-text">Obtain from the <a href="https://dev.twitch.tv/console" target="_blank">Twitch Dev Console</a></span>
+            </div>
+            
+            <div class="form-group">
+                <label>3. Twitch Client Secret <span class="required">*</span></label>
+                <input type="password" id="wizard-twitch-secret" placeholder="Enter client secret">
+            </div>
+
+            <div class="wizard-actions">
+                <button class="btn primary full-width" onclick="saveWizardCredentials()">
+                    <i class="fa-solid fa-circle-check"></i> Initialize Application
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Client-Side JS -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
